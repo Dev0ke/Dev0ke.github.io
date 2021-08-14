@@ -53,7 +53,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2021-08-11 16:03:56'
+  postUpdate: '2021-08-14 09:47:02'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -157,8 +157,7 @@ Part1前面问的比较基础，基本都是《加密与解密》里的内容。
 内存断点的实现？
 内存断点的实现方式是将你欲下断地址所在的内存页增加一个名为PA ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/08/08/Ollvm-Deobfuscation-Learning/" title="Ollvm Deobfuscation Learning">     <img class="post_bg" src="/img/bg2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ollvm Deobfuscation Learning"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/08/08/Ollvm-Deobfuscation-Learning/" title="Ollvm Deobfuscation Learning">Ollvm Deobfuscation Learning</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-08-08T03:49:55.000Z" title="发表于 2021-08-08 11:49:55">2021-08-08</time></span></div><div class="content">简介ollvmHome · obfuscator-llvm/obfuscator Wiki (github.com)
 Obfuscator-LLVM 是 2010 年 6 月由 Yverdon-les-Bains 的瑞士西部应用科学与艺术大学 (HEIG-VD) 的信息安全小组发起的一个项目。
-该项目的目的是提供 LLVM 编译套件的开源分支，能够通过代码混淆和防篡改提供更高的软件安全性。 由于我们目前主要在中间表示 (IR) 级别工作，因此我们的工具与所有编程语言（C、C++、Objective-C、Ada 和 Fortran）和目标平台（x86、x86-64、PowerPC、PowerPC-64）兼容 、ARM、Thumb、SPARC、Alpha、CellSPU、MIPS、MSP430、SystemZ 和 XCore。
-
+该项目的目的是提供 LLVM 编译套件的开源分支，能够通过代码混淆和防篡改提供更高的软件安全性。
 它包含三种混淆保护方式。
 控制流平坦化Control Flow Flattening​    CTF比赛中比较常见的混淆保护方式
 
@@ -170,7 +169,21 @@ Obfuscator-LLVM 是 2010 年 6 月由 Yverdon-les-Bains 的瑞士西部应用科
 主分发器Main dispatcher
 序言的后继为主分发器
 
- ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/07/26/MISC-%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" title="MISC 杂七杂八">     <img class="post_bg" src="/img/79939619_p0_master1200.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MISC 杂七杂八"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/07/26/MISC-%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" title="MISC 杂七杂八">MISC 杂七杂八</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-07-26T07:56:46.000Z" title="发表于 2021-07-26 15:56:46">2021-07-26</time></span></div><div class="content">前言
+子分发器Sub dispatcher
+
+真实块Relevant blocks
+后继为预处理器的块为真实块
+
+返回块Retn
+无后继的块为retn块
+
+
+
+预处理器Pre dispatcher
+后继为主分发器的块为预处理器
+
+
+虚假控制流Bogus Control Flow向基本块中随机添加垃圾指令，同时会添加一些跳转语句和用于条件跳转的常量 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/07/26/MISC-%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" title="MISC 杂七杂八">     <img class="post_bg" src="/img/79939619_p0_master1200.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MISC 杂七杂八"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/07/26/MISC-%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" title="MISC 杂七杂八">MISC 杂七杂八</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-07-26T07:56:46.000Z" title="发表于 2021-07-26 15:56:46">2021-07-26</time></span></div><div class="content">前言
 补充自 Ga1@xy misc工具
 
 图片Imagejpgf5-steganography （F5隐写+passwd）
