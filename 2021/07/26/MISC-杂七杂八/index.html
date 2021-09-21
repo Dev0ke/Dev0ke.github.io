@@ -234,29 +234,29 @@
 <h1 id="图片Image"><a href="#图片Image" class="headerlink" title="图片Image"></a>图片Image</h1><h2 id="jpg"><a href="#jpg" class="headerlink" title="jpg"></a>jpg</h2><h3 id="f5-steganography-（F5隐写-passwd）"><a href="#f5-steganography-（F5隐写-passwd）" class="headerlink" title="f5-steganography （F5隐写+passwd）"></a>f5-steganography （F5隐写+passwd）</h3><ul>
 <li>安装</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/matthewgao/F5-steganography</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">git <span class="hljs-built_in">clone</span> https://github.com/matthewgao/F5-steganography<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>使用: 进入 F5-steganography 文件夹</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java Extract 1.jpg -p 123456</span><br><span class="line">// -p后接f5的key</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">java Extract 1.jpg -p 123456<br>// -p后接f5的key<br></code></pre></td></tr></table></figure>
 
 <h3 id="outguess-图片隐写"><a href="#outguess-图片隐写" class="headerlink" title="outguess (图片隐写)"></a>outguess (图片隐写)</h3><ul>
 <li>加密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">outguess -k 12345 -d hidden.txt 1.jpg 2.jpg</span><br><span class="line">// -k后接密码s</span><br><span class="line">// -d后接要隐藏的内容</span><br><span class="line">// 加密后1.jpg会覆盖2.jpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">outguess -k 12345 -d hidden.txt 1.jpg 2.jpg<br>// -k后接密码s<br>// -d后接要隐藏的内容<br>// 加密后1.jpg会覆盖2.jpg<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>解密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">outguess -k 12345 -r 2.jpg out.txt</span><br><span class="line">// out.txt 中内容即为想要隐藏的 hidden.txt 中内容</span><br><span class="line">// 也可不需要密码</span><br><span class="line">outguess -r 2.jpg out.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">outguess -k 12345 -r 2.jpg out.txt<br>// out.txt 中内容即为想要隐藏的 hidden.txt 中内容<br>// 也可不需要密码<br>outguess -r 2.jpg out.txt<br></code></pre></td></tr></table></figure>
 
-<h3 id="stegdetect（检查jpg图片隐写方法-win）"><a href="#stegdetect（检查jpg图片隐写方法-win）" class="headerlink" title="stegdetect（检查jpg图片隐写方法_win）"></a>stegdetect（检查jpg图片隐写方法_win）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">stegdetect.exe -tjopi -s 10.0 [stego_file]</span><br><span class="line"></span><br><span class="line">-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</span><br><span class="line">-t 设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</span><br><span class="line">j 检测图像中的信息是否是用jsteg嵌入的。</span><br><span class="line">o 检测图像中的信息是否是用outguess嵌入的。</span><br><span class="line">p 检测图像中的信息是否是用jphide嵌入的。</span><br><span class="line">i 检测图像中的信息是否是用invisible secrets嵌入的。</span><br></pre></td></tr></table></figure>
+<h3 id="stegdetect（检查jpg图片隐写方法-win）"><a href="#stegdetect（检查jpg图片隐写方法-win）" class="headerlink" title="stegdetect（检查jpg图片隐写方法_win）"></a>stegdetect（检查jpg图片隐写方法_win）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">stegdetect.exe -tjopi -s 10.0 [stego_file]<br><br>-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。<br>-t 设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：<br>j 检测图像中的信息是否是用jsteg嵌入的。<br>o 检测图像中的信息是否是用outguess嵌入的。<br>p 检测图像中的信息是否是用jphide嵌入的。<br>i 检测图像中的信息是否是用invisible secrets嵌入的。<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>如果显示为 [stego_file]：jphide(***)，则可以用 stegbreak 破解密码</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stegbreak -r rules.ini -f password.txt -t p [stego_file]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">stegbreak -r rules.ini -f password.txt -t p [stego_file]<br></code></pre></td></tr></table></figure>
 
 <h3 id="jphide"><a href="#jphide" class="headerlink" title="jphide"></a>jphide</h3><ul>
 <li>可使用工具 <code>JPHS</code></li>
@@ -264,17 +264,17 @@
 <h3 id="steghide-图片或音频隐藏文件"><a href="#steghide-图片或音频隐藏文件" class="headerlink" title="steghide (图片或音频隐藏文件)"></a>steghide (图片或音频隐藏文件)</h3><ul>
 <li>安装</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install steghide</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get install steghide<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>加密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">steghide embed -cf out.jpg -ef flag.txt [-p 123456] <span class="comment"># -p后接密码，可无</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">steghide embed -cf out.jpg -ef flag.txt [-p 123456] <span class="hljs-comment"># -p后接密码，可无</span><br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>解密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 查看图片中嵌入的文件信息:</span><br><span class="line">steghide info out.jpg</span><br><span class="line">// 提取含有密码的隐藏内容:</span><br><span class="line">steghide extract -sf out.jpg -p 123456</span><br><span class="line">// 提取不含有密码的隐藏内容:</span><br><span class="line">steghide extract -sf out.jpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">// 查看图片中嵌入的文件信息:<br>steghide info out.jpg<br>// 提取含有密码的隐藏内容:<br>steghide extract -sf out.jpg -p 123456<br>// 提取不含有密码的隐藏内容:<br>steghide extract -sf out.jpg<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li><p>steghide</p>
@@ -284,17 +284,17 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python steg_brute.py -b -d [字典] -f [jpg_file]</span><br><span class="line">// 需要安装的库: progressbar</span><br><span class="line">pip install progressbar2</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">python steg_brute.py -b -d [字典] -f [jpg_file]<br>// 需要安装的库: progressbar<br>pip install progressbar2<br></code></pre></td></tr></table></figure>
 
 <h2 id="png-amp-bmp"><a href="#png-amp-bmp" class="headerlink" title="png &amp; bmp"></a>png &amp; bmp</h2><h3 id="lsb的py脚本解密（lsb隐写-需要passwd）"><a href="#lsb的py脚本解密（lsb隐写-需要passwd）" class="headerlink" title="lsb的py脚本解密（lsb隐写+需要passwd）"></a>lsb的py脚本解密（lsb隐写+需要passwd）</h3><ul>
 <li>下载： <a target="_blank" rel="noopener" href="https://github.com/livz/cloacked-pixel">https://github.com/livz/cloacked-pixel</a></li>
 <li>简单使用如下,其余详见: <a target="_blank" rel="noopener" href="https://github.com/livz/cloacked-pixel">https://github.com/livz/cloacked-pixel</a></li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python lsb.py extract [stego_file] [out_file] [password]</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python lsb<span class="hljs-selector-class">.py</span> extract <span class="hljs-selector-attr">[stego_file]</span> <span class="hljs-selector-attr">[out_file]</span> <span class="hljs-selector-attr">[password]</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="zsteg-lsb隐写"><a href="#zsteg-lsb隐写" class="headerlink" title="zsteg (lsb隐写)"></a>zsteg (lsb隐写)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gem install zsteg</span><br><span class="line">zsteg 1.bmp</span><br><span class="line">// 一般来讲用 zsteg 解密的文件都为 bmp 文件</span><br></pre></td></tr></table></figure>
+<h3 id="zsteg-lsb隐写"><a href="#zsteg-lsb隐写" class="headerlink" title="zsteg (lsb隐写)"></a>zsteg (lsb隐写)</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">gem install zsteg<br>zsteg <span class="hljs-number">1</span>.bmp<br><span class="hljs-regexp">//</span> 一般来讲用 zsteg 解密的文件都为 bmp 文件<br></code></pre></td></tr></table></figure>
 
-<h3 id="pngcheck（检查IDAT块-win）"><a href="#pngcheck（检查IDAT块-win）" class="headerlink" title="pngcheck（检查IDAT块_win）"></a>pngcheck（检查IDAT块_win）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pngcheck.exe -v 123.png</span><br></pre></td></tr></table></figure>
+<h3 id="pngcheck（检查IDAT块-win）"><a href="#pngcheck（检查IDAT块-win）" class="headerlink" title="pngcheck（检查IDAT块_win）"></a>pngcheck（检查IDAT块_win）</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pngcheck</span>.exe -v <span class="hljs-number">123</span>.png<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>可检查 <code>png</code> 的 <code>IDAT</code> 块是否有问题</li>
@@ -307,27 +307,27 @@
 <h2 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h2><ul>
 <li>安装 (kali)</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install webp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">apt install webp<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li><code>cwebp</code> - 编码器工具：可将 <code>png</code> 转为 <code>webp</code></li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cwebp 1.png -o 2.webp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">cwebp 1.png -o 2.webp<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li><code>dwebp</code> - 解码器工具：可将 <code>webp</code> 转为 <code>png</code> </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dwebp 1.webp -o 2.png</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">dwebp 1.webp -o 2.png<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li><code>vwebp</code> - 查看器工具：可直接查看 <code>webp</code> 格式图片</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vwebp 1.webp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vwebp 1.webp<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li><code>webpinfo</code> - 格式查看工具：可打印出 <code>WebP</code> 文件的块级结构以及基本完整性检查</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpinfo 1.webp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">webpinfo 1.webp<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>其余（ <code>gif2webp</code>、<code>img2webp</code> 等可见 <a target="_blank" rel="noopener" href="https://developers.google.com/speed/webp/docs/using">官方文档</a> ）</li>
@@ -338,28 +338,28 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 安装python前置模块</span><br><span class="line">pip install -i https://pypi.tuna.tsinghua.edu.cn/simple opencv-python</span><br><span class="line">sudo pip install matplotlib</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">// 安装python前置模块<br>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple opencv-python<br>sudo pip install matplotlib<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>加密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python bwm.py encode 1.png water.png 2.png</span><br><span class="line">// 1.png 为无水印原图</span><br><span class="line">// water.png 为水印图</span><br><span class="line">// 2.png 为有盲水印图</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">python bwm.py encode 1.png water.png 2.png<br>// 1.png 为无水印原图<br>// water.png 为水印图<br>// 2.png 为有盲水印图<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>解密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python bwm.py decode 1.png 2.png flag.png</span><br><span class="line">// 1.png 为无水印原图</span><br><span class="line">// 2.png 为有盲水印的图</span><br><span class="line">// flag.png 为解出来的图片</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">python bwm.py decode 1.png 2.png flag.png<br>// 1.png 为无水印原图<br>// 2.png 为有盲水印的图<br>// flag.png 为解出来的图片<br></code></pre></td></tr></table></figure>
 
-<h3 id="第二种-频域盲水印"><a href="#第二种-频域盲水印" class="headerlink" title="第二种 频域盲水印"></a>第二种 频域盲水印</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> argparse <span class="keyword">import</span> ArgumentParser</span><br><span class="line"></span><br><span class="line">ALPHA = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_parser</span>():</span></span><br><span class="line">    parser = ArgumentParser()</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--original&#x27;</span>, dest=<span class="string">&#x27;ori&#x27;</span>, required=<span class="literal">True</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--image&#x27;</span>, dest=<span class="string">&#x27;img&#x27;</span>, required=<span class="literal">True</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--result&#x27;</span>, dest=<span class="string">&#x27;res&#x27;</span>, required=<span class="literal">True</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--alpha&#x27;</span>, dest=<span class="string">&#x27;alpha&#x27;</span>, default=ALPHA)</span><br><span class="line">    <span class="keyword">return</span> parser</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    parser = build_parser()</span><br><span class="line">    options = parser.parse_args()</span><br><span class="line">    ori = options.ori</span><br><span class="line">    img = options.img</span><br><span class="line">    res = options.res</span><br><span class="line">    alpha = options.alpha</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isfile(ori):</span><br><span class="line">        parser.error(<span class="string">&quot;original image %s does not exist.&quot;</span> % ori)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isfile(img):</span><br><span class="line">        parser.error(<span class="string">&quot;image %s does not exist.&quot;</span> % img)</span><br><span class="line">    decode(ori, img, res, alpha)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span>(<span class="params">ori_path, img_path, res_path, alpha</span>):</span></span><br><span class="line">    ori = cv2.imread(ori_path)</span><br><span class="line">    img = cv2.imread(img_path)</span><br><span class="line">    ori_f = np.fft.fft2(ori)</span><br><span class="line">    img_f = np.fft.fft2(img)</span><br><span class="line">    height, width = ori.shape[<span class="number">0</span>], ori.shape[<span class="number">1</span>]</span><br><span class="line">    watermark = (ori_f - img_f) / alpha</span><br><span class="line">    watermark = np.real(watermark)</span><br><span class="line">    res = np.zeros(watermark.shape)</span><br><span class="line">    random.seed(height + width)</span><br><span class="line">    x = <span class="built_in">range</span>(height / <span class="number">2</span>)</span><br><span class="line">    y = <span class="built_in">range</span>(width)</span><br><span class="line">    random.shuffle(x)</span><br><span class="line">    random.shuffle(y)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(height / <span class="number">2</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(width):</span><br><span class="line">            res[x[i]][y[j]] = watermark[i][j]</span><br><span class="line">    cv2.imwrite(res_path, res, [<span class="built_in">int</span>(cv2.IMWRITE_JPEG_QUALITY), <span class="number">100</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br><span class="line">// python pinyubwm.py --original <span class="number">1.</span>png --image <span class="number">2.</span>png --result out.png</span><br><span class="line">// 查看 out.png 即可，如果无法得到正常图片，可将 <span class="number">1.</span>png 和 <span class="number">2.</span>png 调换位置再次尝试</span><br></pre></td></tr></table></figure>
+<h3 id="第二种-频域盲水印"><a href="#第二种-频域盲水印" class="headerlink" title="第二种 频域盲水印"></a>第二种 频域盲水印</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> argparse <span class="hljs-keyword">import</span> ArgumentParser<br><br>ALPHA = <span class="hljs-number">5</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">build_parser</span>():</span><br>    parser = ArgumentParser()<br>    parser.add_argument(<span class="hljs-string">&#x27;--original&#x27;</span>, dest=<span class="hljs-string">&#x27;ori&#x27;</span>, required=<span class="hljs-literal">True</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--image&#x27;</span>, dest=<span class="hljs-string">&#x27;img&#x27;</span>, required=<span class="hljs-literal">True</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--result&#x27;</span>, dest=<span class="hljs-string">&#x27;res&#x27;</span>, required=<span class="hljs-literal">True</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--alpha&#x27;</span>, dest=<span class="hljs-string">&#x27;alpha&#x27;</span>, default=ALPHA)<br>    <span class="hljs-keyword">return</span> parser<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span>():</span><br>    parser = build_parser()<br>    options = parser.parse_args()<br>    ori = options.ori<br>    img = options.img<br>    res = options.res<br>    alpha = options.alpha<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isfile(ori):<br>        parser.error(<span class="hljs-string">&quot;original image %s does not exist.&quot;</span> % ori)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isfile(img):<br>        parser.error(<span class="hljs-string">&quot;image %s does not exist.&quot;</span> % img)<br>    decode(ori, img, res, alpha)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">decode</span>(<span class="hljs-params">ori_path, img_path, res_path, alpha</span>):</span><br>    ori = cv2.imread(ori_path)<br>    img = cv2.imread(img_path)<br>    ori_f = np.fft.fft2(ori)<br>    img_f = np.fft.fft2(img)<br>    height, width = ori.shape[<span class="hljs-number">0</span>], ori.shape[<span class="hljs-number">1</span>]<br>    watermark = (ori_f - img_f) / alpha<br>    watermark = np.real(watermark)<br>    res = np.zeros(watermark.shape)<br>    random.seed(height + width)<br>    x = <span class="hljs-built_in">range</span>(height / <span class="hljs-number">2</span>)<br>    y = <span class="hljs-built_in">range</span>(width)<br>    random.shuffle(x)<br>    random.shuffle(y)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(height / <span class="hljs-number">2</span>):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(width):<br>            res[x[i]][y[j]] = watermark[i][j]<br>    cv2.imwrite(res_path, res, [<span class="hljs-built_in">int</span>(cv2.IMWRITE_JPEG_QUALITY), <span class="hljs-number">100</span>])<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    main()<br><br>// python pinyubwm.py --original <span class="hljs-number">1.</span>png --image <span class="hljs-number">2.</span>png --result out.png<br>// 查看 out.png 即可，如果无法得到正常图片，可将 <span class="hljs-number">1.</span>png 和 <span class="hljs-number">2.</span>png 调换位置再次尝试<br></code></pre></td></tr></table></figure>
 
 <h3 id="隐形水印提取工具"><a href="#隐形水印提取工具" class="headerlink" title="隐形水印提取工具"></a>隐形水印提取工具</h3><p>吾爱</p>
-<h3 id="JAVA盲水印"><a href="#JAVA盲水印" class="headerlink" title="JAVA盲水印"></a>JAVA盲水印</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -jar .\BlindWater.jar decode -c .\bingbing.jpg 2.jpg <span class="comment">#余弦</span></span><br><span class="line">java -jar .\BlindWater.jar decode -f .\bingbing.jpg 2.jpg <span class="comment">#傅里叶</span></span><br></pre></td></tr></table></figure>
+<h3 id="JAVA盲水印"><a href="#JAVA盲水印" class="headerlink" title="JAVA盲水印"></a>JAVA盲水印</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">java -jar .\BlindWater.jar decode -c .\bingbing.jpg 2.jpg <span class="hljs-comment">#余弦</span><br>java -jar .\BlindWater.jar decode -f .\bingbing.jpg 2.jpg <span class="hljs-comment">#傅里叶</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="Image-Scaling-Attacks-图片缩放攻击"><a href="#Image-Scaling-Attacks-图片缩放攻击" class="headerlink" title="Image Scaling Attacks 图片缩放攻击"></a>Image Scaling Attacks 图片缩放攻击</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OAEXZTJ1mp1ZyCSajKdL6w">Writeup | 春秋杯春季赛Misc类题目解析 (qq.com)</a></p>
 <h1 id="压缩包Archive"><a href="#压缩包Archive" class="headerlink" title="压缩包Archive"></a>压缩包Archive</h1><h2 id="crc值爆破-zip包碰撞crc值"><a href="#crc值爆破-zip包碰撞crc值" class="headerlink" title="crc值爆破 (zip包碰撞crc值)"></a>crc值爆破 (zip包碰撞crc值)</h2><ul>
 <li>下载脚本：<a target="_blank" rel="noopener" href="https://github.com/theonlypwner/crc32">https://github.com/theonlypwner/crc32</a></li>
 </ul>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python crc32.py reverse 你的crc32密文</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">python crc32.py reverse 你的crc32密文<br></code></pre></td></tr></table></figure>
 
 <h2 id="压缩包密码爆破"><a href="#压缩包密码爆破" class="headerlink" title="压缩包密码爆破"></a>压缩包密码爆破</h2><ul>
 <li><p>Fcrackzip</p>
@@ -370,22 +370,22 @@
 </li>
 <li><p>rar5+hashcat </p>
 <ul>
-<li>```powershell<br>rar2john test.rar<br>.\hashcat.exe -m 13000 -a 3 –force ‘$rar5$16$fe5656ec27f0754cb92ca0a79120e099$15$974a98d46f1d4da877c271091ea930e9$8$48f568d6888772c2’ ‘?d?d?d?d?d?d’<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">## ZipCenOp（zip伪加密）</span><br><span class="line"></span><br><span class="line">```cmd</span><br><span class="line">#加密</span><br><span class="line">java -jar ZipCenOp.jar e xxx.zip</span><br><span class="line">#解密</span><br><span class="line">java -jar ZipCenOp.jar r xxx.zip</span><br></pre></td></tr></table></figure></li>
+<li>```powershell<br>rar2john test.rar<br>.\hashcat.exe -m 13000 -a 3 –force ‘$rar5$16$fe5656ec27f0754cb92ca0a79120e099$15$974a98d46f1d4da877c271091ea930e9$8$48f568d6888772c2’ ‘?d?d?d?d?d?d’<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><br><br><span class="hljs-comment">## ZipCenOp（zip伪加密）</span><br><br>```cmd<br><span class="hljs-comment">#加密</span><br><span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>ZipCenOp.<span class="hljs-keyword">jar </span>e xxx.zip<br><span class="hljs-comment">#解密</span><br><span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>ZipCenOp.<span class="hljs-keyword">jar </span>r xxx.zip<br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
 <h2 id="RAR伪加密"><a href="#RAR伪加密" class="headerlink" title="RAR伪加密"></a><strong>RAR伪加密</strong></h2><p>查看第24个16进制数后面的数是0还是4，是4表示进行了伪加密，将4改为0就可以解除伪加密。</p>
-<h1 id="音频Audio"><a href="#音频Audio" class="headerlink" title="音频Audio"></a>音频Audio</h1><h2 id="MP3stego（MP3隐写）"><a href="#MP3stego（MP3隐写）" class="headerlink" title="MP3stego（MP3隐写）"></a>MP3stego（MP3隐写）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...\Decode.exe -X -P [password] [stego_mp3]</span><br></pre></td></tr></table></figure>
+<h1 id="音频Audio"><a href="#音频Audio" class="headerlink" title="音频Audio"></a>音频Audio</h1><h2 id="MP3stego（MP3隐写）"><a href="#MP3stego（MP3隐写）" class="headerlink" title="MP3stego（MP3隐写）"></a>MP3stego（MP3隐写）</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">...\Decode<span class="hljs-selector-class">.exe</span> -X -<span class="hljs-selector-tag">P</span> <span class="hljs-selector-attr">[password]</span> <span class="hljs-selector-attr">[stego_mp3]</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="steghide（图片或音频隐藏文件）"><a href="#steghide（图片或音频隐藏文件）" class="headerlink" title="steghide（图片或音频隐藏文件）"></a>steghide（图片或音频隐藏文件）</h2><ul>
 <li>加密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">steghide embed -cf out.jpg -ef flag.txt [-p 123456]</span><br><span class="line">// -p后接密码，可无</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">steghide embed -cf out.jpg -ef flag.txt [-p 123456]<br>// -p后接密码，可无<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>解密</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 查看图片中嵌入的文件信息：</span><br><span class="line">steghide info out.jpg</span><br><span class="line">// 提取含有密码的隐藏内容：</span><br><span class="line">steghide extract -sf out.jpg -p 123456</span><br><span class="line">// 提取不含有密码的隐藏内容：</span><br><span class="line">steghide extract -sf out.jpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">// 查看图片中嵌入的文件信息：<br>steghide info out.jpg<br>// 提取含有密码的隐藏内容：<br>steghide extract -sf out.jpg -p 123456<br>// 提取不含有密码的隐藏内容：<br>steghide extract -sf out.jpg<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>steghide爆破密码<ul>
@@ -393,7 +393,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python steg_brute.py -b -d [字典] -f [jpg_file]</span><br><span class="line">// 需要安装的库：progressbar</span><br><span class="line">pip install progressbar2</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">python steg_brute.py -b -d [字典] -f [jpg_file]<br>// 需要安装的库：progressbar<br>pip install progressbar2<br></code></pre></td></tr></table></figure>
 
 <h2 id="wav"><a href="#wav" class="headerlink" title="wav"></a>wav</h2><p>wavfile 查看音轨</p>
 <h3 id="DeepSound"><a href="#DeepSound" class="headerlink" title="DeepSound"></a>DeepSound</h3><h3 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a><strong>LSB</strong></h3><ul>
@@ -407,24 +407,24 @@
 <h2 id="MP3-private-bit"><a href="#MP3-private-bit" class="headerlink" title="MP3 private bit"></a>MP3 private bit</h2><p><a target="_blank" rel="noopener" href="https://forum.90sec.com/t/topic/261">某工控 CTF 线上赛隐信道数据安全分析题解 - CTF 夺旗赛 - 90Sec</a></p>
 <h1 id="视频Video"><a href="#视频Video" class="headerlink" title="视频Video"></a>视频Video</h1><p>通用MSU StegoVideo / VirtualDub+插件<a target="_blank" rel="noopener" href="https://zhaokaifeng.com/?p=1305">https://zhaokaifeng.com/?p=1305</a></p>
 <h1 id="文本Text"><a href="#文本Text" class="headerlink" title="文本Text"></a>文本Text</h1><h2 id="SNOW"><a href="#SNOW" class="headerlink" title="SNOW"></a>SNOW</h2><p>利用换行 TAB 空格等空白字符隐藏信息</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#加密</span><br><span class="line">snow.exe   -C   -m  &quot;hide message&quot; -p &quot;filename&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">#加密<br>snow.exe   -C   -m  &quot;hide message&quot; -p &quot;filename&quot;<br></code></pre></td></tr></table></figure>
 
 <h2 id="Zero-width-space-隐写"><a href="#Zero-width-space-隐写" class="headerlink" title="Zero-width space 隐写"></a>Zero-width space 隐写</h2><p><a target="_blank" rel="noopener" href="https://tools.miku.ac/zero_width_space_encrypt/">https://tools.miku.ac/zero_width_space_encrypt/</a></p>
 <p><a target="_blank" rel="noopener" href="http://fog.misty.com/perry/ccs/snow/snow/snow.html">http://fog.misty.com/perry/ccs/snow/snow/snow.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://yuanfux.github.io/zero-width-web/">https://yuanfux.github.io/zero-width-web/</a> </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> zwsp_steg</span><br><span class="line"></span><br><span class="line">encoded = zwsp_steg.encode(<span class="string">&#x27;hidden message&#x27;</span>)</span><br><span class="line">decoded = zwsp_steg.decode(encoded)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(decoded)  <span class="comment"># hidden message	</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> zwsp_steg<br><br>encoded = zwsp_steg.encode(<span class="hljs-string">&#x27;hidden message&#x27;</span>)<br>decoded = zwsp_steg.decode(encoded)<br><br><span class="hljs-built_in">print</span>(decoded)  <span class="hljs-comment"># hidden message	</span><br></code></pre></td></tr></table></figure>
 
 <h1 id="综合工具Tools"><a href="#综合工具Tools" class="headerlink" title="综合工具Tools"></a>综合工具Tools</h1><h2 id="Openstego"><a href="#Openstego" class="headerlink" title="Openstego"></a>Openstego</h2><h2 id="Our-Secret（文档加密）"><a href="#Our-Secret（文档加密）" class="headerlink" title="Our Secret（文档加密）"></a>Our Secret（文档加密）</h2><h2 id="wbStego"><a href="#wbStego" class="headerlink" title="wbStego"></a>wbStego</h2><p>bmp wbp , text files, HTML files and  PDF</p>
 <p>wbstego43open：<a target="_blank" rel="noopener" href="http://wbstego.wbailer.com/">http://wbstego.wbailer.com/</a></p>
 <h2 id="exiftool（exif信息）"><a href="#exiftool（exif信息）" class="headerlink" title="exiftool（exif信息）"></a>exiftool（exif信息）</h2><ul>
 <li>安装 (kali)</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install exiftool</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install exiftool<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>使用</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exiftool 1.jpg   // 显示图片所有信息</span><br><span class="line">exiftool 1.jpg | grep flag   // 查看图片有关‘flag’字符的信息</span><br><span class="line">exiftool *   // 查看此文件夹所有图片信息</span><br><span class="line">exiftool -b -ThumbnailImage attachment.jpg &gt;flag.jpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">exiftool 1.jpg   // 显示图片所有信息<br>exiftool 1.jpg | grep flag   // 查看图片有关‘flag’字符的信息<br>exiftool *   // 查看此文件夹所有图片信息<br>exiftool -b -ThumbnailImage attachment.jpg &gt;flag.jpg<br></code></pre></td></tr></table></figure>
 
 <h2 id="stegpy"><a href="#stegpy" class="headerlink" title="stegpy"></a>stegpy</h2><ul>
 <li><p>此种加密支持对PNG、BMP、GIF、WebP和WAV格式加密，同时可以选择有无password</p>
@@ -435,7 +435,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">stegpy <span class="string">&#x27;hello_world&#x27;</span> image.png</span><br><span class="line">- 含有密码</span><br><span class="line"></span><br><span class="line">stegpy <span class="string">&quot;hello_world&quot;</span> image.png -p</span><br><span class="line">Enter password (will not be echoed): // 输入密码（不显示）</span><br><span class="line">Verify password (will not be echoed): // 确认密码（不显示）</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">stegpy <span class="hljs-string">&#x27;hello_world&#x27;</span> image.png<br>- 含有密码<br><br>stegpy <span class="hljs-string">&quot;hello_world&quot;</span> image.png -p<br>Enter password (will not be echoed): // 输入密码（不显示）<br>Verify password (will not be echoed): // 确认密码（不显示）<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>解密<ul>
@@ -443,30 +443,30 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stegpy _image.png</span><br><span class="line">- 含有密码</span><br><span class="line"></span><br><span class="line">stegpy _image.png -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">stegpy _image.png<br>- 含有密码<br><br>stegpy _image.png -p<br></code></pre></td></tr></table></figure>
 
 <h1 id="其它Other"><a href="#其它Other" class="headerlink" title="其它Other"></a>其它Other</h1><h2 id="aircrack-ng（爆破wifi密码）"><a href="#aircrack-ng（爆破wifi密码）" class="headerlink" title="aircrack-ng（爆破wifi密码）"></a>aircrack-ng（爆破wifi密码）</h2><ul>
 <li>kali下自带有一份无线密码字典：/usr/share/wordlists/rockyou.txt.gz，我们需要将其解压</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/wordlists/rockyou.txt.gz</span><br><span class="line">gzip -d rockyou.txt.gz</span><br><span class="line">aircrack-ng -w /usr/share/wordlists/rockyou.txt -b [MAC] [capfile]</span><br><span class="line">// -w 后加字典的位置（kali中自带字典的位置）</span><br><span class="line">// -b 后加路由器的MAC地址（应该也就是 BSSID）</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>rockyou.txt.gz<br>gzip -d rockyou.txt.gz<br>aircrack-ng -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>rockyou.txt -b [MAC] [capfile]<br><span class="hljs-regexp">//</span> -w 后加字典的位置（kali中自带字典的位置）<br><span class="hljs-regexp">//</span> -b 后加路由器的MAC地址（应该也就是 BSSID）<br></code></pre></td></tr></table></figure>
 
 <h2 id="PMKID-破解密码"><a href="#PMKID-破解密码" class="headerlink" title="PMKID 破解密码"></a>PMKID 破解密码</h2><p><a target="_blank" rel="noopener" href="http://www.hak5.com.cn/post/2257.html">http://www.hak5.com.cn/post/2257.html</a></p>
 <h2 id="bitlocker2john"><a href="#bitlocker2john" class="headerlink" title="bitlocker2john"></a>bitlocker2john</h2><h2 id="xortool（猜测xor加密的密码长度及值）"><a href="#xortool（猜测xor加密的密码长度及值）" class="headerlink" title="xortool（猜测xor加密的密码长度及值）"></a>xortool（猜测xor加密的密码长度及值）</h2><ul>
 <li>这里只列出了最简单的使用方法，其余可见：<a target="_blank" rel="noopener" href="https://pypi.org/project/xortool/">https://pypi.org/project/xortool/</a></li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xortool (-x) -c 20 123.txt</span><br><span class="line">// -x：代表文件内容为十六进制</span><br><span class="line">// -c：后加出现频率最高的字符，文本内容一般是空格（20），二进制文件一般是00</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">xortool (-x) -c 20 123.txt<br>// -x：代表文件内容为十六进制<br>// -c：后加出现频率最高的字符，文本内容一般是空格（20），二进制文件一般是00<br></code></pre></td></tr></table></figure>
 
 <h2 id="mimikatz（抓取lsass密码）"><a href="#mimikatz（抓取lsass密码）" class="headerlink" title="mimikatz（抓取lsass密码）"></a>mimikatz（抓取lsass密码）</h2><ul>
 <li>参考: <a target="_blank" rel="noopener" href="https://www.nigesb.com/introduction-of-mimikatz.html">介绍一下神器mimikatz，从lsass里抓密码 | Jarett’s Blog</a></li>
 <li>下载：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1qZmnPar-gfqT9OaWO_DS3g">https://pan.baidu.com/s/1qZmnPar-gfqT9OaWO_DS3g</a> 提取码 <code>svp9</code></li>
 <li>将 <code>lsass.dmp</code> 文件放在 <code>mimikatz.exe</code> 所在目录下，关闭杀软后打开 <code>mimikatz.exe</code> , 执行以下三条命令：</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::minidump lsass.dmp</span><br><span class="line">sekurlsa::logonpasswords full</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">privilege::debug<br>sekurlsa::minidump lsass.dmp<br>sekurlsa::logonpasswords full<br></code></pre></td></tr></table></figure>
 
 <h2 id="gaps-拼图"><a href="#gaps-拼图" class="headerlink" title="gaps (拼图)"></a>gaps (拼图)</h2><ul>
 <li>安装</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/nemanja-m/gaps.git</span><br><span class="line"><span class="built_in">cd</span> gaps  </span><br><span class="line">pip install -r requirements.txt</span><br><span class="line">sudo apt-get install python-tk</span><br><span class="line">pip install -e .</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">git <span class="hljs-built_in">clone</span> https://github.com/nemanja-m/gaps.git<br><span class="hljs-built_in">cd</span> gaps  <br>pip install -r requirements.txt<br>sudo apt-get install python-tk<br>pip install -e .<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>创建拼图<ul>
@@ -474,7 +474,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create_puzzle [图片绝度路径] --size=[尺寸] --destination=[创建拼图名称]</span><br></pre></td></tr></table></figure>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs inform7">create_puzzle <span class="hljs-comment">[图片绝度路径]</span> --size=<span class="hljs-comment">[尺寸]</span> --destination=<span class="hljs-comment">[创建拼图名称]</span><br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>还原拼图<ul>
@@ -482,7 +482,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gaps --image=out.jpg --generations=50 --population=120 --size=50</span><br><span class="line"></span><br><span class="line">--image            指向拼图的路径</span><br><span class="line">--size            拼图块的像素尺寸</span><br><span class="line">--generations    遗传算法的代的数量</span><br><span class="line">--population    个体数量</span><br><span class="line">--verbose        每一代训练结束后展示最佳结果</span><br><span class="line">--save            将拼图还原为图像</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">gaps --image=out.jpg --generations=50 --population=120 --size=50<br><br>--image            指向拼图的路径<br>--size            拼图块的像素尺寸<br>--generations    遗传算法的代的数量<br>--population    个体数量<br>--verbose        每一代训练结束后展示最佳结果<br>--save            将拼图还原为图像<br></code></pre></td></tr></table></figure>
 
 <h2 id="dtmf2num（电话音解码）"><a href="#dtmf2num（电话音解码）" class="headerlink" title="dtmf2num（电话音解码）"></a>dtmf2num（电话音解码）</h2><ul>
 <li><code>windows</code> 下有</li>
@@ -490,16 +490,16 @@
 </ul>
 <h2 id="AA3D-3D字符画"><a href="#AA3D-3D字符画" class="headerlink" title="AA3D 3D字符画"></a>AA3D 3D字符画</h2><p>stegsolver 修改offset</p>
 <h2 id="emoji"><a href="#emoji" class="headerlink" title="emoji"></a>emoji</h2><p><a target="_blank" rel="noopener" href="https://codemoji.miaotony.xyz/">https://codemoji.miaotony.xyz/</a></p>
-<h2 id="调制解调"><a href="#调制解调" class="headerlink" title="调制解调"></a>调制解调</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minimodem -r -f encoded 1200</span><br></pre></td></tr></table></figure>
+<h2 id="调制解调"><a href="#调制解调" class="headerlink" title="调制解调"></a>调制解调</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">minimodem</span> -r -f encoded <span class="hljs-number">1200</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="Npiet语言"><a href="#Npiet语言" class="headerlink" title="Npiet语言"></a>Npiet语言</h2><p>一种脚本语言,用图片表示,可以有输入输出</p>
 <p><a target="_blank" rel="noopener" href="http://www.bertnase.de/npiet">http://www.bertnase.de/npiet</a></p>
 <p>特点文档是像素点的图片 隐写 及 加密</p>
 <h2 id="NTFS-附加数据流"><a href="#NTFS-附加数据流" class="headerlink" title="NTFS 附加数据流"></a>NTFS 附加数据流</h2><p>用Winrar解压可见</p>
 <h2 id="SSH附加键盘数据"><a href="#SSH附加键盘数据" class="headerlink" title="SSH附加键盘数据"></a>SSH附加键盘数据</h2><p><a target="_blank" rel="noopener" href="https://github.com/benjeems/packetStrider">https://github.com/benjeems/packetStrider</a></p>
-<h2 id="pyc文件"><a href="#pyc文件" class="headerlink" title="pyc文件"></a>pyc文件</h2><h3 id="uncompyle6（pyc反编译）"><a href="#uncompyle6（pyc反编译）" class="headerlink" title="uncompyle6（pyc反编译）"></a>uncompyle6（pyc反编译）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uncompyle6 test.pyc &gt; test.py</span><br></pre></td></tr></table></figure>
+<h2 id="pyc文件"><a href="#pyc文件" class="headerlink" title="pyc文件"></a>pyc文件</h2><h3 id="uncompyle6（pyc反编译）"><a href="#uncompyle6（pyc反编译）" class="headerlink" title="uncompyle6（pyc反编译）"></a>uncompyle6（pyc反编译）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">uncompyle6 test.pyc &gt; test.py<br></code></pre></td></tr></table></figure>
 
-<h3 id="Stegosaurus（pyc隐写）"><a href="#Stegosaurus（pyc隐写）" class="headerlink" title="Stegosaurus（pyc隐写）"></a>Stegosaurus（pyc隐写）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 版本：Python 3.6 or later</span><br><span class="line">python stegosaurus.py -x [pyc_file]</span><br></pre></td></tr></table></figure>
+<h3 id="Stegosaurus（pyc隐写）"><a href="#Stegosaurus（pyc隐写）" class="headerlink" title="Stegosaurus（pyc隐写）"></a>Stegosaurus（pyc隐写）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">// 版本：Python 3.6 or later<br>python stegosaurus.py -x [pyc_file]<br></code></pre></td></tr></table></figure>
 
 <h1 id=""><a href="#" class="headerlink" title=""></a></h1>
             </div>
