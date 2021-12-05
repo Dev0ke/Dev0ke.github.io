@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      33
        分钟
     </span>
   
@@ -265,6 +265,35 @@
 
 <p><img src="https://i.loli.net/2021/10/18/aGQjlT7ABdvPeus.png" srcset="/img/loading.gif" lazyload alt="image-20211018114557614"></p>
 <p>速度相较于单线程的subprocess快了一些，但显然在爆破空间较大时，无法在有效时间内完成，建议用于调试分析，不建议使用在爆破上。</p>
+<h2 id="x64dbgpy"><a href="#x64dbgpy" class="headerlink" title="x64dbgpy"></a>x64dbgpy</h2><p><a target="_blank" rel="noopener" href="https://github.com/x64dbg/x64dbg">x64dbg</a>是Windows平台下的一款开源调试器，<a target="_blank" rel="noopener" href="https://github.com/x64dbg/x64dbgpy">x64dbgpy</a>使其支持Python编写自动化调试脚本。</p>
+<p>常用API有</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//调试API</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Wait</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Pause</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">StepIn</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">StepOver</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">StepOut</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-comment">//断点API</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">SetBreakpoint</span><span class="hljs-params">(duint address)</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">DeleteBreakpoint</span><span class="hljs-params">(duint address)</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">DisableBreakpoint</span><span class="hljs-params">(duint address)</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">SetHardwareBreakpoint</span><span class="hljs-params">(duint address, HardwareType type = HardwareExecute)</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">DeleteHardwareBreakpoint</span><span class="hljs-params">(duint address)</span></span><br><span class="hljs-function"><span class="hljs-comment">//内存读写</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Read</span><span class="hljs-params">(duint addr, <span class="hljs-keyword">void</span>* data, duint size, duint* sizeRead)</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Write</span><span class="hljs-params">(duint addr, <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span>* data, duint size, duint* sizeWritten)</span></span><br><span class="hljs-function"><span class="hljs-comment">//寄存器读写</span></span><br><span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-title">GetEAX</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">SetEAX</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> value)</span></span><br></code></pre></td></tr></table></figure>
+
+<p>以KCTF2021迷失丛林为例，该题第一个校验算法复杂，大致为根据输入前8字节生成256*256大小box后，再对box的内容数据进行统计，难以写出解密算法，考虑爆破。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> x64dbgpy.pluginsdk <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> permutations<br>p = [<span class="hljs-number">75</span>,<span class="hljs-number">40</span>,<span class="hljs-number">109</span>,<span class="hljs-number">140</span>,<span class="hljs-number">251</span>,<span class="hljs-number">210</span>,<span class="hljs-number">30</span>,<span class="hljs-number">163</span>]<br><br>addr = <span class="hljs-number">0x04041f0</span><br>start = <span class="hljs-number">0x004013fc</span><br>wrond_addr = <span class="hljs-number">0x40141e</span><br>right_addr = <span class="hljs-number">0x04016b6</span><br>temp = <span class="hljs-number">0x0404220</span><br>empty = <span class="hljs-string">b&quot;\x00&quot;</span>*<span class="hljs-number">0x10200</span><br><br>SetBreakpoint(wrond_addr)<br>SetBreakpoint(right_addr)<br><br>c = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> (permutations(p, <span class="hljs-number">8</span>)):<br>    test = <span class="hljs-string">&quot;&quot;</span>.join(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">chr</span>, i))<br>    SetEIP(start)<br>    Write(addr,test)<br>    Write(<span class="hljs-number">0x0404220</span>, empty)<br>    SetEBX(<span class="hljs-number">0x019FE00</span>)<br>    Run()<br>    Wait()<br>    ip = GetEIP()<br>    <span class="hljs-keyword">if</span>(ip == wrond_addr):<br>        <span class="hljs-keyword">if</span>(c%<span class="hljs-number">1000</span> == <span class="hljs-number">0</span>):<br>            <span class="hljs-built_in">print</span>(c)<br>        c += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[+]Found&quot;</span>)<br>        <span class="hljs-built_in">print</span>(i)<br>        <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2021/11/30/VzALg71Cu9ms6TI.png" srcset="/img/loading.gif" lazyload alt="image-20211130172526135" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://hex-rays.com/blog/practical-appcall-examples/">Practical Appcall examples – Hex Rays (hex-rays.com)</a></p>
 </blockquote>
