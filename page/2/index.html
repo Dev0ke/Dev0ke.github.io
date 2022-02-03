@@ -182,6 +182,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/07/08/PWN-Writeup/" target="_self">
+          PWN Writeup
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/08/PWN-Writeup/" target="_self">
+          
+          
+            
+          
+          PwnableStart
+
+保护全关,有两个系统调用 write 和 read ,显然是通过栈溢出来执行栈上的shellcode
+12#define __NR_read 3#define __NR_write 4	
+
+12345678910111213141516171819202122.text:08048060 push    esp.text:08048061 push    offset 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-08 22:37" pubdate>
+              2021-07-08
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/PWN-WriteUp/">PWN, WriteUp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/07/08/Heap-learning-note/" target="_self">
           Heap learning note
         </a>
