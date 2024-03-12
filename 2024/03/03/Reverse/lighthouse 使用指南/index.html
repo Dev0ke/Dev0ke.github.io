@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>lighthouse 使用指南 | devoke's blog</title><meta name="author" content="devoke"><meta name="copyright" content="devoke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="最近在搞Fuzz，所以有了查看覆盖率的需求。 简介lighthouse: 是一个用于在IDA、Binary Ninja中加载并显示程序覆盖率的插件，目前支持的插桩工具格式有：  DynamoRIO Frida Intel Pin  使用方法安装将项目中plugin目录下的文件移动到$IDA&#x2F;plugins中即可。 插桩 DynamoRIO1DynamoRIO\bin64\drrun.exe -t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lighthouse 使用指南">
+<meta property="og:url" content="http://blog.devoke.top/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="devoke&#39;s blog">
+<meta property="og:description" content="最近在搞Fuzz，所以有了查看覆盖率的需求。 简介lighthouse: 是一个用于在IDA、Binary Ninja中加载并显示程序覆盖率的插件，目前支持的插桩工具格式有：  DynamoRIO Frida Intel Pin  使用方法安装将项目中plugin目录下的文件移动到$IDA&#x2F;plugins中即可。 插桩 DynamoRIO1DynamoRIO\bin64\drrun.exe -t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/02/20/G8ehKOsoDzA43Jy.jpg">
+<meta property="article:published_time" content="2024-03-03T15:45:14.000Z">
+<meta property="article:modified_time" content="2024-03-11T16:05:29.966Z">
+<meta property="article:author" content="devoke">
+<meta property="article:tag" content="Reverse">
+<meta property="article:tag" content="Fuzzing">
+<meta property="article:tag" content="IDA插件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/02/20/G8ehKOsoDzA43Jy.jpg"><link rel="shortcut icon" href="https://s2.loli.net/2024/02/20/B6y8wIH5iltGxP9.png"><link rel="canonical" href="http://blog.devoke.top/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?eda200e82598fd5e22ef89c9ce3f1b33";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-ZEZ0N6KXGT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-ZEZ0N6KXGT');
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'lighthouse 使用指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-12 00:05:29'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/02/20/G8ehKOsoDzA43Jy.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2024/02/20/i5askw6xYVRKDtE.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="devoke's blog"><span class="site-name">devoke's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">lighthouse 使用指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-03T15:45:14.000Z" title="发表于 2024-03-03 23:45:14">2024-03-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-11T16:05:29.966Z" title="更新于 2024-03-12 00:05:29">2024-03-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>最近在搞Fuzz，所以有了查看覆盖率的需求。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://github.com/pengxy/lighthouse">lighthouse:</a> 是一个用于在IDA、Binary Ninja中加载并显示程序覆盖率的插件，目前支持的插桩工具格式有：</p>
+<ul>
+<li>DynamoRIO</li>
+<li>Frida</li>
+<li>Intel Pin</li>
+</ul>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>将项目中<a target="_blank" rel="noopener" href="https://github.com/pengxy/lighthouse/tree/master/plugin" title="plugin">plugin</a>目录下的文件移动到<code>$IDA/plugins</code>中即可。</p>
+<h3 id="插桩"><a href="#插桩" class="headerlink" title="插桩"></a>插桩</h3><ul>
+<li>DynamoRIO<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DynamoRIO\bin64\drrun.exe -t drcov -- boombox.exe</span><br></pre></td></tr></table></figure></li>
+<li>Frida<br>  使用仓库下的<a target="_blank" rel="noopener" href="https://github.com/pengxy/lighthouse/blob/master/coverage/frida/frida-drcov.py">脚本</a><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python frida-drcov.py boombox.exe</span><br></pre></td></tr></table></figure></li>
+<li>Intel Pin<br>  需要Pin去加载releases中的DLL 👉 <a target="_blank" rel="noopener" href="https://github.com/pengxy/lighthouse/tags">Tags · pengxy&#x2F;lighthouse (github.com)</a><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pin.exe -t CodeCoverage64.dll -- boombox.exe</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="加载覆盖率文件"><a href="#加载覆盖率文件" class="headerlink" title="加载覆盖率文件"></a>加载覆盖率文件</h4><p>在IDA中有入口，其中第二个可以加载并合并多个覆盖率文件，第三个为概览窗口。</p>
+<ul>
+<li>File –&gt; Load file –&gt; Code coverage file…</li>
+<li>File –&gt; Load file –&gt; Code coverage batch…</li>
+<li>View –&gt; Open subviews –&gt; Coverage Overview</li>
+</ul>
+<h4 id="着色"><a href="#着色" class="headerlink" title="着色"></a>着色</h4><p>执行过的指令会在反汇编、流程图、伪代码中对应蓝色背景显示。<br><img src="https://s2.loli.net/2024/03/03/iefC85uoRNXQOdh.png" alt="image.png"></p>
+<h4 id="交叉引用"><a href="#交叉引用" class="headerlink" title="交叉引用"></a>交叉引用</h4><p>在反汇编窗口中右键，菜单里的<code>Coverage Xref</code>可以获得不同覆盖率文件中该指令&#x2F;基本块的覆盖率信息。<br><img src="https://s2.loli.net/2024/03/03/neSJtcKMUNDarP5.png" alt="image.png"></p>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p>概览窗口显示了各个函数的：</p>
+<ul>
+<li>覆盖率：百分比显示，不同覆盖率百分比会有不同背景色，类似bindiff中的相似度</li>
+<li>函数名</li>
+<li>地址</li>
+<li>Blocks Hit：命中的基本块 &#x2F; 总基本块</li>
+<li>Instructions HIt：命中的指令数 &#x2F; 总指令数</li>
+<li>函数大小：函数指令占用的字节数</li>
+<li>CC：Cyclomatic complexit 通过计算程序中的控制流路径数目来衡量代码的复杂程度<br><img src="https://s2.loli.net/2024/03/03/neSJtcKMUNDarP5.png"><br>底部菜单有</li>
+<li>Coverage Shell：命令编辑框，可以执行逻辑操作(Composer命令)</li>
+<li>Coverage Composition下拉选框：可以选择不同的覆盖率文件&#x2F;聚合&#x2F;构成</li>
+<li>图标按钮：<ul>
+<li>更改主题</li>
+<li>清除着色</li>
+<li>着色开关</li>
+<li>重建</li>
+<li>生成报告</li>
+<li>隐藏未执行的函数</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/03/03/oWpxXHfSnTcr6au.png" alt="image.png"></p>
+<h4 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h4><p><img src="https://s2.loli.net/2024/03/03/6bqt1wR2ip4TEFY.png" alt="image.png"></p>
+<p>Fuzz过程中，会产生多个覆盖率文件，为了对比不同文件的覆盖率差异，可以使用Composer命令来进行，其语法类似布尔表达式</p>
+<ul>
+<li>逻辑运算符： <code>|, &amp;, ^, -</code></li>
+<li>覆盖范围符号： <code>A, B, C, ..., Z</code></li>
+<li>覆盖范围： <code>A,C</code> 、 <code>Q,Z</code> 、…</li>
+<li>括号： <code>(...)</code><br>同时可以进行搜索：</li>
+<li><code>/</code> + 关键词<br>跳转：</li>
+<li>直接输入函数地址</li>
+</ul>
+<h4 id="常用语句"><a href="#常用语句" class="headerlink" title="常用语句"></a>常用语句</h4><ol>
+<li>在覆盖率 <code>A</code> 和覆盖率 <code>B</code> 之间取已执行代码的交集：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A &amp; B</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>仅对覆盖率 <code>A</code> 唯一的已执行代码：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A - B</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>执行的代码在 <code>A</code> 或 <code>B</code> 中，但在 <code>C</code> 的：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(A | B) - C</span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reverse/">Reverse</a><a class="post-meta__tags" href="/tags/Fuzzing/">Fuzzing</a><a class="post-meta__tags" href="/tags/IDA%E6%8F%92%E4%BB%B6/">IDA插件</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/02/20/G8ehKOsoDzA43Jy.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/" title="ES小主机折腾记"><img class="cover" src="https://s2.loli.net/2024/02/19/kctqJ6bRvNTnBej.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ES小主机折腾记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/07/01/Reverse/Brute-Force-in-Reverse-Engineer/" title="Brute Force in Reverse Engineer"><img class="cover" src="/img/90788524_p0_master1200.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-01</div><div class="title">Brute Force in Reverse Engineer</div></div></a></div><div><a href="/2021/08/08/Reverse/Ollvm-Deobfuscation-Learning/" title="Ollvm Deobfuscation Learning"><img class="cover" src="/img/bg2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-08</div><div class="title">Ollvm Deobfuscation Learning</div></div></a></div><div><a href="/2021/10/15/Reverse/unidbg-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="unidbg 学习笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-15</div><div class="title">unidbg 学习笔记</div></div></a></div><div><a href="/2021/08/29/Reverse/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" title="加密与解密笔记-PE文件格式"><img class="cover" src="https://i.loli.net/2021/08/29/ki8y5sOeEBKD49A.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-29</div><div class="title">加密与解密笔记-PE文件格式</div></div></a></div><div><a href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE"><img class="cover" src="https://s2.loli.net/2024/02/20/h3iOcSdRqel45vD.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-20</div><div class="title">HFCTF2022 RE</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/02/20/G8ehKOsoDzA43Jy.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">devoke</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E6%A1%A9"><span class="toc-number">2.2.</span> <span class="toc-text">插桩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E8%A6%86%E7%9B%96%E7%8E%87%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.1.</span> <span class="toc-text">加载覆盖率文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9D%80%E8%89%B2"><span class="toc-number">2.3.2.</span> <span class="toc-text">着色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8"><span class="toc-number">2.3.3.</span> <span class="toc-text">交叉引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E8%A7%88"><span class="toc-number">2.3.4.</span> <span class="toc-text">概览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Composer"><span class="toc-number">2.3.5.</span> <span class="toc-text">Composer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.3.6.</span> <span class="toc-text">常用语句</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="lighthouse 使用指南">lighthouse 使用指南</a><time datetime="2024-03-03T15:45:14.000Z" title="发表于 2024-03-03 23:45:14">2024-03-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/" title="ES小主机折腾记">ES小主机折腾记</a><time datetime="2024-02-19T03:05:01.000Z" title="发表于 2024-02-19 11:05:01">2024-02-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE">HFCTF2022 RE</a><time datetime="2022-03-20T12:04:53.000Z" title="发表于 2022-03-20 20:04:53">2022-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/WriteUp/%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%E5%AF%86%E7%A0%81%E9%A2%98/" title="简简单单密码题">简简单单密码题</a><time datetime="2022-03-09T12:08:44.000Z" title="发表于 2022-03-09 20:08:44">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/02/03/Python/Python-multiprocess-learning/" title="Python multiprocess learning">Python multiprocess learning</a><time datetime="2022-02-03T06:25:30.000Z" title="发表于 2022-02-03 14:25:30">2022-02-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By devoke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>
