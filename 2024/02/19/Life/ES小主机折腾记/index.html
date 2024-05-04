@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ES小主机折腾记 | devoke's blog</title><meta name="author" content="devoke"><meta name="copyright" content="devoke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="寒假回家，发现家里的用了近十年了老PC越来越卡了，原有的配置是i3 3220 +8G，上了个256的固态，但是垃圾H61主板只有SATA2的接口，导致无法跑满速，另外稳定性上也有一定的问题，eg 机箱前面板的接口也不太稳定，遂打算趁这段时间给它升级一下。因为主要是给父母炒股看视频用的，并不需要太好的"><link rel="shortcut icon" href="https://s2.loli.net/2024/02/20/B6y8wIH5iltGxP9.png"><link rel="canonical" href="http://example.com/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/index.html"><link rel="preconnect"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: ,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ES小主机折腾记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-02-20 09:52:03'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2024/02/19/kctqJ6bRvNTnBej.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="devoke's blog"><span class="site-name">devoke's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ES小主机折腾记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-02-19T03:05:01.000Z" title="发表于 2024-02-19 11:05:01">2024-02-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-20T01:52:03.000Z" title="更新于 2024-02-20 09:52:03">2024-02-20</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>寒假回家，发现家里的用了近十年了老PC越来越卡了，原有的配置是i3 3220 +8G，上了个256的固态，但是垃圾H61主板只有SATA2的接口，导致无法跑满速，另外稳定性上也有一定的问题，eg 机箱前面板的接口也不太稳定，遂打算趁这段时间给它升级一下。因为主要是给父母炒股看视频用的，并不需要太好的性能，最好是能支持WIFI蓝牙的小主机什么的，所以当时考虑了几个方案，但是综合当时的价格来看都不尽人意：</p>
+<ul>
+<li>R5 5600G 核显小主机：整机都是丐中丐配置，自己组也划不来，板U没1000下不来</li>
+<li>准系统小主机：<ul>
+<li>N100 小主机：功耗低，但是性能不太够用</li>
+<li>4800H的铭凡UM480，当时价格居高不下，让了</li>
+</ul>
+</li>
+</ul>
+<p>最后偶然在zdm上看到了一个邪道小主机方案↓<br><img src="https://s2.loli.net/2024/02/19/NIgxpRlv6VPZGhy.webp" alt="ES小主机折腾日记-20240217200233131.webp"></p>
+<p>当时闲鱼上的奸商卖的版本大概是这个样子的，只能说性价比高的离谱，果断入手了一个7640H的版本，后来很快卖断货了，据说以后也不会有了，可以说是绝版了（x）。<br><img src="https://s2.loli.net/2024/02/19/JvSqmVijUAWB85y.webp" alt="ES小主机折腾日记-20240217200528869.webp"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU</td>
+<td>AMD Ryzen 7640H ES</td>
+<td>1199</td>
+</tr>
+<tr>
+<td>散热</td>
+<td>下压式散热</td>
+<td>自带</td>
+</tr>
+<tr>
+<td>机箱</td>
+<td>公模小机箱</td>
+<td>自带</td>
+</tr>
+<tr>
+<td>主板</td>
+<td>神秘国产主板</td>
+<td>自带</td>
+</tr>
+<tr>
+<td>电源</td>
+<td>台达120W电源</td>
+<td>自带</td>
+</tr>
+<tr>
+<td>网卡</td>
+<td>瑞昱8852AE WIFI+蓝牙</td>
+<td>0</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>拯救者拆机三星8G 5600*2</td>
+<td>150</td>
+</tr>
+<tr>
+<td>固态</td>
+<td>三星PM9A1 512G</td>
+<td>245</td>
+</tr>
+<tr>
+<td></td>
+<td>合计</td>
+<td>1628</td>
+</tr>
+</tbody></table>
+<h2 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h2><h3 id="外观"><a href="#外观" class="headerlink" title="外观"></a>外观</h3><p><img src="https://s2.loli.net/2024/02/19/kctqJ6bRvNTnBej.webp" alt="ES小主机折腾记-20240218204528633.webp"></p>
+<p>机箱外观挺好看的，但是通体塑料没啥质感可言，做工也非常一般，接口跟开口位置偏差了一点点，好再不影响使用。</p>
+<p>背部有</p>
+<ul>
+<li>Type-C供电接口</li>
+<li>2.5G + 1G RJ45接口</li>
+<li>HDMI 2.1 + DP</li>
+<li>USB 2.0 * 2<br><img src="https://s2.loli.net/2024/02/19/3vXRn9c8E1N7qF5.webp" alt="ES小主机折腾记-20240218204030008.webp"><br>前面板则是</li>
+<li>开机按钮 + 杀马特RGB风扇灯调节按钮</li>
+<li>3.5 音频输出</li>
+<li>USB 3.2 Gen 2 * 2</li>
+<li>USB 4.0</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/02/19/CDWkx47thH1NQZo.webp" alt="ES小主机折腾记-20240218204500333.webp"></p>
+<p>这个是自带的板砖电源，用的是台达，没用国产垃圾电源还算良心。<br><img src="https://s2.loli.net/2024/02/19/Q3bg1thFknr4UKv.webp" alt="ES小主机折腾记-20240218204636410.webp"></p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>6C12T的7640H,规格应该是比正式版的稍差一些，支持最新的AV1解码。<br><img src="https://s2.loli.net/2024/02/19/UOsEySR3JHAu296.webp" alt="ES小主机折腾记-20240218130823893.webp"></p>
+<p>CPUZ的跑分跟我现在用的5800H差不多，天梯图上也确实是这个水平。<br><img src="https://s2.loli.net/2024/02/19/IeGf69KlyNV7dpq.webp" alt="ES小主机折腾记-20240218130846447.webp"><br><img src="https://s2.loli.net/2024/02/19/VJuInK38fQX4vPH.webp" alt="ES小主机折腾记-20240218135602112.webp"></p>
+<p>主板支持PCIE4.0，因为只是512G的PM9A1，读写性能没有1T那么好，但是家用足够了（PS:用ASSSD测的读写会低一些，原因不明）。<br><img src="https://s2.loli.net/2024/02/19/Ugk2iurVNnpJtys.webp" alt="ES小主机折腾记-20240218130808213.webp"></p>
+<p>最后是娱乐大师跑分，图一乐。<br><img src="https://s2.loli.net/2024/02/19/wZDFnHxPCN4r79W.webp" alt="ES小主机折腾记-20240218204740990.webp"></p>
+<h3 id="烤机"><a href="#烤机" class="headerlink" title="烤机"></a>烤机</h3><p>BIOS设置的温度墙是90度，最高可以跑到75W，能稳定在65W左右，这个下压式散热是可以压的住的，但是固态、内存区域没有风扇，只有底部稀疏的开孔配合脚垫垫高机箱被动散热，极端场景下积热会比较严重，硬盘能到80度，后续可以考虑加个8cm的小风扇把热量排出去，主板上预留了几个风扇的电源接口，还是很人性化的。</p>
+<p><img src="https://s2.loli.net/2024/02/19/lVZeJOt8qvK5Ihx.webp" alt="ES小主机折腾记-20240218130857230.webp"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Zen4架构的小主机配合闲鱼上的低价拆机内存，性价比堪称无敌，性能上直接全面干翻我21年入手的小新Pro16。机箱模具设计的还行，基本没有噪音，如果有朝一日退役下来当个NAS&#x2F;小服务器什么的也是非常香的。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a target="_blank" rel="noopener" href="https://post.smzdm.com/p/a4xlxlvl/">垃圾佬千挑万选的1299的R9-6900HX ES _CPU_什么值得买 (smzdm.com)</a><br><a target="_blank" rel="noopener" href="https://post.smzdm.com/p/a5k6r447/">伪垃圾佬的心头好—迷你主机7640hx工程版_台式机_什么值得买 (smzdm.com)</a><br>【1199元！高性价比AMD 7640迷你主机评测 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Cg4y1Y7YS?vd_source=1fb17dfd11749f4723f8b0ba10ffc175">https://www.bilibili.com/video/BV1Cg4y1Y7YS?vd_source=1fb17dfd11749f4723f8b0ba10ffc175</a><br>【6900HX 迷你主机:解锁温度墙+风扇温控+解锁功耗墙+内存超频+修改显存 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Du4y1G7RK?vd_source=1fb17dfd11749f4723f8b0ba10ffc175">https://www.bilibili.com/video/BV1Du4y1G7RK?vd_source=1fb17dfd11749f4723f8b0ba10ffc175</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%A3%85%E6%9C%BA/">装机</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="lighthouse 使用指南"><img class="cover" src="https://s2.loli.net/2024/02/20/i5askw6xYVRKDtE.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">lighthouse 使用指南</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE"><img class="cover" src="https://s2.loli.net/2024/02/20/h3iOcSdRqel45vD.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HFCTF2022 RE</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">devoke</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="lighthouse 使用指南">lighthouse 使用指南</a><time datetime="2024-03-03T15:45:14.000Z" title="发表于 2024-03-03 23:45:14">2024-03-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/" title="ES小主机折腾记">ES小主机折腾记</a><time datetime="2024-02-19T03:05:01.000Z" title="发表于 2024-02-19 11:05:01">2024-02-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE">HFCTF2022 RE</a><time datetime="2022-03-20T12:04:53.000Z" title="发表于 2022-03-20 20:04:53">2022-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/WriteUp/%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%E5%AF%86%E7%A0%81%E9%A2%98/" title="简简单单密码题">简简单单密码题</a><time datetime="2022-03-09T12:08:44.000Z" title="发表于 2022-03-09 20:08:44">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/02/03/Python/Python-multiprocess-learning/" title="Python multiprocess learning">Python multiprocess learning</a><time datetime="2022-02-03T06:25:30.000Z" title="发表于 2022-02-03 14:25:30">2022-02-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2024/02/19/kctqJ6bRvNTnBej.webp')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By devoke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"></div></div></body></html>

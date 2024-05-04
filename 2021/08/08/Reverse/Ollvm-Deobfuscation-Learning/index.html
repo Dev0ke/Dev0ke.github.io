@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Ollvm Deobfuscation Learning | devoke's blog</title><meta name="author" content="devoke"><meta name="copyright" content="devoke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="简介ollvmHome · obfuscator-llvm&amp;#x2F;obfuscator Wiki (github.com) Obfuscator-LLVM 是 2010 年 6 月由 Yverdon-les-Bains 的瑞士西部应用科学与艺术大学 (HEIG-VD) 的信息安全小组发起的一个项"><link rel="shortcut icon" href="https://s2.loli.net/2024/02/20/B6y8wIH5iltGxP9.png"><link rel="canonical" href="http://example.com/2021/08/08/Reverse/Ollvm-Deobfuscation-Learning/index.html"><link rel="preconnect"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: ,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ollvm Deobfuscation Learning',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-02-20 10:00:46'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/bg2.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="devoke's blog"><span class="site-name">devoke's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ollvm Deobfuscation Learning</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-08T03:49:55.000Z" title="发表于 2021-08-08 11:49:55">2021-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-20T02:00:46.000Z" title="更新于 2024-02-20 10:00:46">2024-02-20</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="ollvm"><a href="#ollvm" class="headerlink" title="ollvm"></a>ollvm</h3><p><a target="_blank" rel="noopener" href="https://github.com/obfuscator-llvm/obfuscator/wiki">Home · obfuscator-llvm&#x2F;obfuscator Wiki (github.com)</a></p>
+<p>Obfuscator-LLVM 是 2010 年 6 月由 Yverdon-les-Bains 的瑞士西部应用科学与艺术大学 (HEIG-VD) 的信息安全小组发起的一个项目。</p>
+<p>该项目的目的是提供 LLVM 编译套件的开源分支，能够通过代码混淆和防篡改提供更高的软件安全性。</p>
+<p>它包含三种混淆保护方式。</p>
+<h3 id="控制流平坦化Control-Flow-Flattening"><a href="#控制流平坦化Control-Flow-Flattening" class="headerlink" title="控制流平坦化Control Flow Flattening"></a>控制流平坦化Control Flow Flattening</h3><p>​	CTF比赛中比较常见的混淆保护方式</p>
+<p><img src="https://blog.quarkslab.com/resources/2014-12-04_ollvm/images/2_code_flat.png" alt="Click to enlarge"></p>
+<p>混淆后的块分为</p>
+<ul>
+<li><p>序言Prologue</p>
+<p>函数开始地址对应的基本块</p>
+</li>
+<li><p>主分发器Main dispatcher</p>
+<p>序言的后继为主分发器</p>
+</li>
+<li><p>子分发器Sub dispatcher</p>
+<ul>
+<li><p>真实块Relevant blocks</p>
+<p>后继为预处理器的块为真实块</p>
+</li>
+<li><p>返回块Retn</p>
+<p>无后继的块为retn块</p>
+</li>
+</ul>
+</li>
+<li><p>预处理器Pre dispatcher</p>
+<p>后继为主分发器的块为预处理器</p>
+</li>
+</ul>
+<h3 id="虚假控制流Bogus-Control-Flow"><a href="#虚假控制流Bogus-Control-Flow" class="headerlink" title="虚假控制流Bogus Control Flow"></a>虚假控制流Bogus Control Flow</h3><p>向基本块中随机添加垃圾指令，同时会添加一些跳转语句和用于条件跳转的常量，会产生多个基本块。一种通用性较强的解决方法是</p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-257213.htm"> Hex-Rays: 十步杀一人，两步秒OLLVM-BCF</a></p>
+<p><img src="https://i.loli.net/2021/08/05/z8cIOpgtqLSHeUX.png" alt="image-20210805225429960"></p>
+<p><img src="https://i.loli.net/2021/08/05/gfhbBHo8Fz1IEUM.png" alt="image-20210805225510900"></p>
+<h3 id="指令代换Instructions-Substitution"><a href="#指令代换Instructions-Substitution" class="headerlink" title="指令代换Instructions Substitution"></a>指令代换Instructions Substitution</h3><p>将标准二元运算符（如加法、减法或布尔运算符）替换为功能等效但更复杂的指令序列。 </p>
+<ul>
+<li><p>Addition</p>
+<ul>
+<li><code>a = b - (-c)</code></li>
+<li><code>a = -(-b + (-c))</code></li>
+<li><code>r = rand (); a = b + r; a = a + c; a = a - r</code></li>
+<li><code>r = rand (); a = b - r; a = a + b; a = a + r</code></li>
+</ul>
+</li>
+<li><p>Subtraction</p>
+<ul>
+<li><code>a = b + (-c)</code></li>
+<li><code>r = rand (); a = b + r; a = a - c; a = a - r</code></li>
+<li><code>r = rand (); a = b - r; a = a - c; a = a + r</code></li>
+</ul>
+</li>
+<li><p>AND</p>
+<ul>
+<li><code>a = b &amp; c</code> &#x3D;&gt; <code>a = (b ^ ~c) &amp; b</code></li>
+</ul>
+</li>
+<li><p>OR</p>
+<ul>
+<li><code>a = b | c</code> &#x3D;&gt; <code>a = (b &amp; c) | (b ^ c)</code></li>
+</ul>
+</li>
+<li><p>XOR</p>
+<ul>
+<li><code>a = a ^ b</code> &#x3D;&gt; <code>a = (~a &amp; b) | (a &amp; ~b)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="deflat源码解析"><a href="#deflat源码解析" class="headerlink" title="deflat源码解析"></a>deflat源码解析</h2><h3 id="deflatten"><a href="#deflatten" class="headerlink" title="deflatten"></a>deflatten</h3><h4 id="Step1-获取序言、返回块、主分发器、预处理器"><a href="#Step1-获取序言、返回块、主分发器、预处理器" class="headerlink" title="Step1 获取序言、返回块、主分发器、预处理器"></a>Step1 获取序言、返回块、主分发器、预处理器</h4><p>不需要符号执行，直接通过块与块之间的关联可以判断，</p>
+<ul>
+<li>入度为0为序言，出度为0为返回块</li>
+<li>序言的下一个块为主分发器</li>
+<li>除了序言之外，主分发器的前一块为预处理器</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># get prologue_node and retn_node</span></span><br><span class="line">prologue_node = <span class="literal">None</span></span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> supergraph.nodes():</span><br><span class="line">    <span class="keyword">if</span> supergraph.in_degree(node) == <span class="number">0</span>:</span><br><span class="line">        prologue_node = node</span><br><span class="line">    <span class="keyword">if</span> supergraph.out_degree(node) == <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(node.out_branches) == <span class="number">0</span>:</span><br><span class="line">        retn_node = node</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> prologue_node <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> prologue_node.addr != start:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Something must be wrong...&quot;</span>)</span><br><span class="line">    sys.exit(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">main_dispatcher_node = <span class="built_in">list</span>(supergraph.successors(prologue_node))[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> supergraph.predecessors(main_dispatcher_node):</span><br><span class="line">    <span class="keyword">if</span> node.addr != prologue_node.addr:</span><br><span class="line">        pre_dispatcher_node = node</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Step2-获取关联块、无用块"><a href="#Step2-获取关联块、无用块" class="headerlink" title="Step2 获取关联块、无用块"></a>Step2 获取关联块、无用块</h4><p>判断规则为：后继块为预处理器的块且指令数量大于8</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_relevant_nop_nodes</span>(<span class="params">supergraph, pre_dispatcher_node, prologue_node, retn_node</span>):</span><br><span class="line">    <span class="comment"># relevant_nodes = list(supergraph.predecessors(pre_dispatcher_node))</span></span><br><span class="line">    relevant_nodes = []</span><br><span class="line">    nop_nodes = []</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> supergraph.nodes():</span><br><span class="line">        <span class="keyword">if</span> supergraph.has_edge(node, pre_dispatcher_node) <span class="keyword">and</span> node.size &gt; <span class="number">8</span>:</span><br><span class="line">            <span class="comment"># <span class="doctag">XXX:</span> use node.size is faster than to create a block</span></span><br><span class="line">            relevant_nodes.append(node)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">if</span> node.addr <span class="keyword">in</span> (prologue_node.addr, retn_node.addr, pre_dispatcher_node.addr):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        nop_nodes.append(node)</span><br><span class="line">    <span class="keyword">return</span> relevant_nodes, nop_nodes</span><br></pre></td></tr></table></figure>
+
+<h4 id="Step3-符号执行前的预处理"><a href="#Step3-符号执行前的预处理" class="headerlink" title="Step3  符号执行前的预处理"></a>Step3  符号执行前的预处理</h4><p>为了方便，这里把真实块、序言和retn块统称为真实块，首先从每个真实块的起始地址开始进行静态分析</p>
+<ol>
+<li>如果遇到CMOV指令，则代表该块后继存在分支，需要符号执行操作</li>
+<li>遇到CALL指令，加入hook_addrs集合，在符号执行时HOOK并直接返回</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*******************symbolic execution*********************&#x27;</span>)</span><br><span class="line">relevants = relevant_nodes</span><br><span class="line">relevants.append(prologue_node)</span><br><span class="line">relevants_without_retn = <span class="built_in">list</span>(relevants)</span><br><span class="line">relevants.append(retn_node)</span><br><span class="line">relevant_block_addrs.extend([prologue_node.addr, retn_node.addr])</span><br><span class="line"></span><br><span class="line">flow = defaultdict(<span class="built_in">list</span>)</span><br><span class="line">patch_instrs = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> relevant <span class="keyword">in</span> relevants_without_retn:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;-------------------dse %#x---------------------&#x27;</span> % relevant.addr)</span><br><span class="line">    block = project.factory.block(relevant.addr, size=relevant.size)</span><br><span class="line">    has_branches = <span class="literal">False</span></span><br><span class="line">    hook_addrs = <span class="built_in">set</span>([])</span><br><span class="line">    <span class="keyword">for</span> ins <span class="keyword">in</span> block.capstone.insns:</span><br><span class="line">        <span class="keyword">if</span> project.arch.name <span class="keyword">in</span> ARCH_X86:</span><br><span class="line">            <span class="keyword">if</span> ins.insn.mnemonic.startswith(<span class="string">&#x27;cmov&#x27;</span>):</span><br><span class="line">                <span class="comment"># only record the first one</span></span><br><span class="line">                <span class="keyword">if</span> relevant <span class="keyword">not</span> <span class="keyword">in</span> patch_instrs:</span><br><span class="line">                    patch_instrs[relevant] = ins</span><br><span class="line">                    has_branches = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> ins.insn.mnemonic.startswith(<span class="string">&#x27;call&#x27;</span>):</span><br><span class="line">                hook_addrs.add(ins.insn.address)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Step4-符号执行"><a href="#Step4-符号执行" class="headerlink" title="Step4 符号执行"></a>Step4 符号执行</h4><p>符号执行的主要操作是：如果遇到分支，就改变判断值执行两次来获取分支的地址，这里用angr的inspect在遇到类型为ITE的IR表达式时，改变临时变量的值来实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">symbolic_execution</span>(<span class="params">project, relevant_block_addrs, start_addr, hook_addrs=<span class="literal">None</span>, modify_value=<span class="literal">None</span>, inspect=<span class="literal">False</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">retn_procedure</span>(<span class="params">state</span>): <span class="comment">#遇到函数调用，直接返回</span></span><br><span class="line">        ip = state.solver.<span class="built_in">eval</span>(state.regs.ip)</span><br><span class="line">        project.unhook(ip)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#https://angr.io/api-doc/pyvex.html</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">statement_inspect</span>(<span class="params">state</span>): <span class="comment">#使用statement before类型的inspect 在遇到条件出口时会进行表达式修改</span></span><br><span class="line">        expressions = <span class="built_in">list</span>(</span><br><span class="line">            state.scratch.irsb.statements[state.inspect.statement].expressions) <span class="comment">#获取表达式</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(expressions) != <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">isinstance</span>(expressions[<span class="number">0</span>], pyvex.expr.ITE):</span><br><span class="line">            state.scratch.temps[expressions[<span class="number">0</span>].cond.tmp] = modify_value <span class="comment">#修改真假</span></span><br><span class="line">            state.inspect._breakpoints[<span class="string">&#x27;statement&#x27;</span>] = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> hook_addrs <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>: <span class="comment">#添加HOOK地址</span></span><br><span class="line">        skip_length = <span class="number">4</span></span><br><span class="line">        <span class="keyword">if</span> project.arch.name <span class="keyword">in</span> ARCH_X86:</span><br><span class="line">            skip_length = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> hook_addr <span class="keyword">in</span> hook_addrs:</span><br><span class="line">            project.hook(hook_addr, retn_procedure, length=skip_length)</span><br><span class="line"></span><br><span class="line">    state = project.factory.blank_state(addr=start_addr, remove_options=&#123;</span><br><span class="line">                                        angr.sim_options.LAZY_SOLVES&#125;)</span><br><span class="line">    <span class="keyword">if</span> inspect:</span><br><span class="line">        state.inspect.b(</span><br><span class="line">            <span class="string">&#x27;statement&#x27;</span>, when=angr.state_plugins.inspect.BP_BEFORE, action=statement_inspect)</span><br><span class="line">    sm = project.factory.simulation_manager(state)</span><br><span class="line">    sm.step()</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(sm.active) &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> active_state <span class="keyword">in</span> sm.active:</span><br><span class="line">            <span class="keyword">if</span> active_state.addr <span class="keyword">in</span> relevant_block_addrs:</span><br><span class="line">                <span class="keyword">return</span> active_state.addr</span><br><span class="line">        sm.step()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="Step5-Patch"><a href="#Step5-Patch" class="headerlink" title="Step5 Patch"></a>Step5 Patch</h4><p>NOP无用块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># patch irrelevant blocks</span></span><br><span class="line"><span class="keyword">for</span> nop_node <span class="keyword">in</span> nop_nodes:</span><br><span class="line">    fill_nop(origin_data, nop_node.addr-base_addr,</span><br><span class="line">             nop_node.size, project.arch)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>控制流平坦化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> parent, childs <span class="keyword">in</span> flow.items(): <span class="comment">#flow 内部结构为 (真实块：[后继块0，后继块1])</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(childs) == <span class="number">1</span>: <span class="comment">#后继块只有一个</span></span><br><span class="line">        parent_block = project.factory.block(parent.addr, size=parent.size)</span><br><span class="line">        last_instr = parent_block.capstone.insns[-<span class="number">1</span>] <span class="comment">#块最后一条指令</span></span><br><span class="line">        file_offset = last_instr.address - base_addr</span><br><span class="line">        <span class="comment"># patch the last instruction to jmp</span></span><br><span class="line">        <span class="keyword">if</span> project.arch.name <span class="keyword">in</span> ARCH_X86:</span><br><span class="line">            fill_nop(origin_data, file_offset,</span><br><span class="line">                     last_instr.size, project.arch)</span><br><span class="line">            patch_value = ins_j_jmp_hex_x86(last_instr.address, childs[<span class="number">0</span>], <span class="string">&#x27;jmp&#x27;</span>)</span><br><span class="line">        patch_instruction(origin_data, file_offset, patch_value)</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment">#后继块有两个 将cmovx 修改为 jx 和 jmp</span></span><br><span class="line">        instr = patch_instrs[parent]</span><br><span class="line">        file_offset = instr.address - base_addr</span><br><span class="line">        <span class="comment"># patch instructions starting from `cmovx` to the end of block</span></span><br><span class="line">        fill_nop(origin_data, file_offset, parent.addr +</span><br><span class="line">                 parent.size - base_addr - file_offset, project.arch)</span><br><span class="line">        <span class="keyword">if</span> project.arch.name <span class="keyword">in</span> ARCH_X86:</span><br><span class="line">            <span class="comment"># patch the cmovx instruction to jx instruction</span></span><br><span class="line">            patch_value = ins_j_jmp_hex_x86(instr.address, childs[<span class="number">0</span>], instr.mnemonic[<span class="built_in">len</span>(<span class="string">&#x27;cmov&#x27;</span>):])</span><br><span class="line">            patch_instruction(origin_data, file_offset, patch_value)</span><br><span class="line">            file_offset += <span class="number">6</span></span><br><span class="line">            <span class="comment"># patch the next instruction to jmp instrcution</span></span><br><span class="line">            patch_value = ins_j_jmp_hex_x86(instr.address+<span class="number">6</span>, childs[<span class="number">1</span>], <span class="string">&#x27;jmp&#x27;</span>)</span><br><span class="line">            patch_instruction(origin_data, file_offset, patch_value)</span><br><span class="line"><span class="keyword">assert</span> <span class="built_in">len</span>(origin_data) == origin_data_len, <span class="string">&quot;Error: size of data changed!!!&quot;</span></span><br><span class="line">recovery.write(origin_data)</span><br><span class="line">recovery.close()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Successful! The recovered file: %s&#x27;</span> % recovery_file)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="debogus"><a href="#debogus" class="headerlink" title="debogus"></a>debogus</h3><p>  基本思想是用angr找出所有可到达块，保留可到达块，NOP掉虚假块。</p>
+<ol>
+<li><p>符号执行：创建一个可达块集合，通过angr将可达块加入该集合。</p>
+</li>
+<li><p>遍历所有块，如果不在可达块集合，则使用NOP填充。如果可达，则需要进一步判断其后继块的可达性。</p>
+<ol>
+<li><p>如果后继块不可达，使用NOP填充不可达的后继块</p>
+</li>
+<li><p>如果后继块可达，将其加入跳转集合</p>
+</li>
+<li><p>如果最终跳转集合只有一个后继块，则将条件跳转指令PATCH为直接跳转JMP到该后继块。</p>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">flow = <span class="built_in">set</span>()   <span class="comment">#块集合</span></span><br><span class="line">flow.add(target_function.addr) <span class="comment">#起始地址</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*******************symbolic execution*********************&#x27;</span>)  <span class="comment">#符号执行获得所有可到达块</span></span><br><span class="line">sm = project.factory.simulation_manager(state)  </span><br><span class="line">sm.step()   <span class="comment">#下一块</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">len</span>(sm.active) &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">for</span> active <span class="keyword">in</span> sm.active:</span><br><span class="line">        flow.add(active.addr)</span><br><span class="line">    sm.step()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;executed blocks: &#x27;</span>, <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">hex</span>, flow)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;************************patch******************************&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> origin:</span><br><span class="line">    origin_data = <span class="built_in">bytearray</span>(origin.read())</span><br><span class="line">    origin_data_len = <span class="built_in">len</span>(origin_data)</span><br><span class="line"></span><br><span class="line">patch_nodes = <span class="built_in">set</span>()</span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> supergraph.nodes():</span><br><span class="line">    <span class="keyword">if</span> node.addr <span class="keyword">in</span> patch_nodes:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> node.addr <span class="keyword">not</span> <span class="keyword">in</span> flow:  <span class="comment">#不属于可到达块 MOP</span></span><br><span class="line">        <span class="comment"># patch unnecessary node</span></span><br><span class="line">        file_offset = node.addr - base_addr</span><br><span class="line">        fill_nop(origin_data, file_offset, node.size, project.arch)</span><br><span class="line">    <span class="keyword">else</span>:                      <span class="comment">#可到达块 PATCH JMP</span></span><br><span class="line">        suc_nodes = <span class="built_in">list</span>(supergraph.successors(node)) <span class="comment">#返回基本块的后继节点</span></span><br><span class="line">        jmp_targets = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> suc_node <span class="keyword">in</span> suc_nodes:</span><br><span class="line">            <span class="keyword">if</span> suc_node.addr <span class="keyword">in</span> flow:  <span class="comment">#可到达 加入可达后继块集合</span></span><br><span class="line">                jmp_targets.append(suc_node.addr)</span><br><span class="line">            <span class="keyword">else</span>:                      <span class="comment">#不可到达 NOP填充</span></span><br><span class="line">                <span class="comment"># patch unnecessary suc_node</span></span><br><span class="line">                file_offset = suc_node.addr - base_addr</span><br><span class="line">                fill_nop(origin_data, file_offset,</span><br><span class="line">                         suc_node.size, project.arch)</span><br><span class="line">                patch_nodes.add(suc_node.addr)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># patch jmp instruction</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(suc_nodes) &gt; <span class="number">1</span> <span class="keyword">and</span> <span class="built_in">len</span>(jmp_targets) == <span class="number">1</span>:   <span class="comment">#对于后继块存在虚假块的情况，PATCH为直接跳转JMP到真实块</span></span><br><span class="line">            <span class="keyword">if</span> project.arch.name <span class="keyword">in</span> ARCH_X86:</span><br><span class="line">                file_offset = node.addr + node.size - <span class="number">6</span> - base_addr</span><br><span class="line">                <span class="comment"># nop + jmp</span></span><br><span class="line">                patch_value = OPCODES[<span class="string">&#x27;x86&#x27;</span>][<span class="string">&#x27;nop&#x27;</span>] + ins_j_jmp_hex_x86(node.addr + node.size - <span class="number">5</span>, jmp_targets[<span class="number">0</span>], <span class="string">&#x27;jmp&#x27;</span>)</span><br><span class="line">                patch_instruction(origin_data, file_offset, patch_value)</span><br></pre></td></tr></table></figure>
+
+<h2 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h2><h3 id="MRCTF2021-古神的低语"><a href="#MRCTF2021-古神的低语" class="headerlink" title="{MRCTF2021]古神的低语"></a>{MRCTF2021]古神的低语</h3><p>主函数存在多个预处理器，需要合并才能正常平坦化，方式很简单，把原来储存预处理器的变量类型修改成一个数组，把真实块的最后一条指令Patch成跳转到同一个块。</p>
+<p><img src="https://i.loli.net/2021/08/14/lMwQKFANnPVIyja.png" alt="image-20210814093307007"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_relevant_nop_nodes</span>(<span class="params">supergraph, pre_dispatcher_nodes, prologue_node, retn_node</span>):</span><br><span class="line">    <span class="comment"># relevant_nodes = list(supergraph.predecessors(pre_dispatcher_node))</span></span><br><span class="line">    relevant_nodes = []</span><br><span class="line">    nop_nodes = []</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> supergraph.nodes():</span><br><span class="line">        should_nop=<span class="literal">True</span></span><br><span class="line">        <span class="keyword">for</span> pre_dispatcher_node <span class="keyword">in</span> pre_dispatcher_nodes:  <span class="comment"># 遍历判断</span></span><br><span class="line">            <span class="keyword">if</span> supergraph.has_edge(node, pre_dispatcher_node) <span class="keyword">and</span> node.size &gt; <span class="number">8</span>:</span><br><span class="line">                <span class="comment"># <span class="doctag">XXX:</span> use node.size is faster than to create a block</span></span><br><span class="line">                relevant_nodes.append(node)</span><br><span class="line">                should_nop=<span class="literal">False</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> node.addr <span class="keyword">in</span> (prologue_node.addr, retn_node.addr, pre_dispatcher_node.addr):</span><br><span class="line">                should_nop=<span class="literal">False</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> should_nop <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">            nop_nodes.append(node)</span><br><span class="line">    <span class="keyword">return</span> relevant_nodes, nop_nodes</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> supergraph.predecessors(main_dispatcher_node):      <span class="comment">#Fixed</span></span><br><span class="line">      <span class="keyword">if</span> node.addr != prologue_node.addr:</span><br><span class="line">          pre_dispatcher_nodes.append(node)  <span class="comment">#append</span></span><br><span class="line">  pre_dispatcher_node=pre_dispatcher_nodes[<span class="number">0</span>]</span><br><span class="line">  relevant_nodes, nop_nodes = get_relevant_nop_nodes(</span><br><span class="line">      supergraph, pre_dispatcher_nodes, prologue_node, retn_node)</span><br><span class="line">      <span class="keyword">if</span> <span class="built_in">len</span>(pre_dispatcher_nodes)&gt;<span class="number">1</span>:</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&#x27;Multiple pre_dispatcher_nodes detected...\ntry to merge pre_dispatchers into one....&#x27;</span>)</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&#x27;************************merge*****************************&#x27;</span>)</span><br><span class="line">      <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> origin:</span><br><span class="line">          <span class="comment"># Attention: can&#x27;t transform to str by calling decode() directly. so use bytearray instead.</span></span><br><span class="line">          origin_data = <span class="built_in">bytearray</span>(origin.read())</span><br><span class="line">          origin_data_len = <span class="built_in">len</span>(origin_data)</span><br><span class="line">      fixed_file = filename + <span class="string">&#x27;_merged&#x27;</span></span><br><span class="line">      fixing = <span class="built_in">open</span>(fixed_file, <span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">      target = pre_dispatcher_node</span><br><span class="line">      <span class="keyword">for</span> nodes <span class="keyword">in</span> relevant_nodes:</span><br><span class="line">          block = project.factory.block(nodes.addr, size=nodes.size)</span><br><span class="line">          last_instr = block.capstone.insns[-<span class="number">1</span>]</span><br><span class="line">          file_offset = last_instr.address - base_addr</span><br><span class="line">          <span class="built_in">print</span>(<span class="string">&quot;------------------------&quot;</span>+<span class="built_in">hex</span>(nodes.addr)+<span class="string">&quot;------------------------&quot;</span>)</span><br><span class="line">          <span class="keyword">if</span> project.arch.name <span class="keyword">in</span> ARCH_X86:</span><br><span class="line">              fill_nop(origin_data, file_offset,</span><br><span class="line">                       last_instr.size, project.arch)</span><br><span class="line">              patch_value = ins_j_jmp_hex_x86(last_instr.address, target.addr, <span class="string">&#x27;jmp&#x27;</span>)</span><br><span class="line">          <span class="keyword">elif</span> project.arch.name <span class="keyword">in</span> ARCH_ARM:</span><br><span class="line">              patch_value = ins_b_jmp_hex_arm(last_instr.address, target.addr, <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">              <span class="keyword">if</span> project.arch.memory_endness == <span class="string">&quot;Iend_BE&quot;</span>:</span><br><span class="line">                  patch_value = patch_value[::-<span class="number">1</span>]</span><br><span class="line">          <span class="keyword">elif</span> project.arch.name <span class="keyword">in</span> ARCH_ARM64:</span><br><span class="line">              <span class="comment"># <span class="doctag">FIXME:</span> For aarch64/arm64, the last instruction of prologue seems useful in some cases, so patch the next instruction instead.</span></span><br><span class="line">              <span class="keyword">if</span> parent.addr == start:</span><br><span class="line">                  file_offset += <span class="number">4</span></span><br><span class="line">                  patch_value = ins_b_jmp_hex_arm64(last_instr.address+<span class="number">4</span>, target.addr, <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">              <span class="keyword">else</span>:</span><br><span class="line">                  patch_value = ins_b_jmp_hex_arm64(last_instr.address, target.addr, <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">              <span class="keyword">if</span> project.arch.memory_endness == <span class="string">&quot;Iend_BE&quot;</span>:</span><br><span class="line">                  patch_value = patch_value[::-<span class="number">1</span>]</span><br><span class="line">          patch_instruction(origin_data, file_offset, patch_value)</span><br><span class="line">      <span class="keyword">for</span> useless <span class="keyword">in</span> pre_dispatcher_nodes:</span><br><span class="line">          <span class="keyword">if</span> useless!=target:</span><br><span class="line">              fill_nop(origin_data,useless.addr -base_addr,useless.size,project.arch)</span><br><span class="line">      fixing.write(origin_data)</span><br><span class="line">      fixing.close()</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&#x27;Merge Successfully!\nPlease run this scripts on %s again&#x27;</span> % fixed_file)</span><br><span class="line">      sys.exit(-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/cq674350529/deflat">cq674350529&#x2F;deflat: use angr to deobfuscation (github.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.quarkslab.com/deobfuscation-recovering-an-ollvm-protected-program.html">Deobfuscation: recovering an OLLVM-protected program (quarkslab.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://security.tencent.com/index.php/blog/msg/112">利用符号执行去除控制流平坦化 - 博客 - 腾讯安全应急响应中心 (tencent.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/237793#h3-8">MRCTF2021 Reverse官方wp - 安全客，安全资讯平台 (anquanke.com)</a></p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reverse/">Reverse</a><a class="post-meta__tags" href="/tags/OLLVM/">OLLVM</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/08/11/Life/Midnight/" title="Midnight"><img class="cover" src="https://s2.loli.net/2024/02/20/ilROfZ6LXspkr8B.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Midnight</div></div></a></div><div class="next-post pull-right"><a href="/2021/07/26/Misc/Misc-%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" title="MISC 杂七杂八"><img class="cover" src="https://s2.loli.net/2024/02/20/9JkbzViQC6hyfW5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MISC 杂七杂八</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">devoke</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="lighthouse 使用指南">lighthouse 使用指南</a><time datetime="2024-03-03T15:45:14.000Z" title="发表于 2024-03-03 23:45:14">2024-03-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/" title="ES小主机折腾记">ES小主机折腾记</a><time datetime="2024-02-19T03:05:01.000Z" title="发表于 2024-02-19 11:05:01">2024-02-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE">HFCTF2022 RE</a><time datetime="2022-03-20T12:04:53.000Z" title="发表于 2022-03-20 20:04:53">2022-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/WriteUp/%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%E5%AF%86%E7%A0%81%E9%A2%98/" title="简简单单密码题">简简单单密码题</a><time datetime="2022-03-09T12:08:44.000Z" title="发表于 2022-03-09 20:08:44">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/02/03/Python/Python-multiprocess-learning/" title="Python multiprocess learning">Python multiprocess learning</a><time datetime="2022-02-03T06:25:30.000Z" title="发表于 2022-02-03 14:25:30">2022-02-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/bg2.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By devoke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"></div></div></body></html>

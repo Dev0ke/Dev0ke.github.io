@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Heap learning note | devoke's blog</title><meta name="author" content="devoke"><meta name="copyright" content="devoke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="目前正在学堆相关的漏洞及利用，资料参考的是shellphish战队编写的how2heap: A repository for learning various heap exploitation techniques.，记录一下自己的学习过程。  Ubuntu 16.04 python2  0x00"><link rel="shortcut icon" href="https://s2.loli.net/2024/02/20/B6y8wIH5iltGxP9.png"><link rel="canonical" href="http://example.com/2021/07/08/Pwn/Heap-learning-note/index.html"><link rel="preconnect"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: ,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Heap learning note',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-02-20 10:01:35'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2024/02/20/Rz1MuKePOtUjLJ7.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="devoke's blog"><span class="site-name">devoke's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Heap learning note</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-08T14:33:41.000Z" title="发表于 2021-07-08 22:33:41">2021-07-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-20T02:01:35.000Z" title="更新于 2024-02-20 10:01:35">2024-02-20</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>目前正在学堆相关的漏洞及利用，资料参考的是shellphish战队编写的<a target="_blank" rel="noopener" href="https://github.com/shellphish/how2heap">how2heap: A repository for learning various heap exploitation techniques.</a>，记录一下自己的学习过程。</p>
+<ul>
+<li>Ubuntu 16.04</li>
+<li>python2</li>
+</ul>
+<h2 id="0x00-prepare"><a href="#0x00-prepare" class="headerlink" title="0x00  prepare"></a>0x00  prepare</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/shellphish/how2heap.git</span><br><span class="line"><span class="built_in">cd</span> how2heap</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x01-basic"><a href="#0x01-basic" class="headerlink" title="0x01 basic"></a>0x01 basic</h2><h3 id="first-fit"><a href="#first-fit" class="headerlink" title="first_fit"></a>first_fit</h3><p>​	即操作系统学过的首次适应(最快适应)算法，再加上bin中FIFO的顺序，所以在申请大小接近的堆的时候，会优先分配到最早free的chunk。</p>
+<h3 id="calc-tcache-idx"><a href="#calc-tcache-idx" class="headerlink" title="calc_tcache_idx"></a>calc_tcache_idx</h3><p>​	在Glibc的2.26中 新增了Tcache机制 这是ptmalloc2的<strong>缓存机制</strong>,cache为每个线程都预留了这样一个特殊的bins， bin的数量是64个 每个bin中最多缓存7个chunk。在64位系统上以0x10的字节递增，<strong>从24递增到1032字节</strong>。32位系统上则<strong>从12到512字节</strong>，所以Tcache缓存的是<strong>非Large Chunk的chunk</strong>。</p>
+<p>​	这个样例给出了计算tcache不同大小的chunk的idx的方法。</p>
+<h2 id="0x02-fastbin"><a href="#0x02-fastbin" class="headerlink" title="0x02 fastbin"></a>0x02 fastbin</h2><h3 id="fastbin-dup"><a href="#fastbin-dup" class="headerlink" title="fastbin_dup"></a>fastbin_dup</h3><p>​	这个例子描述了一个fastbin上的double free，由于fastbin是一个单链表，free的时候是chunk直接链接到list头部，所以具有LIFO的特性，最后释放的chunk会在最前面。</p>
+<p>​	free顺序为p1-&gt;p2-&gt;p1。</p>
+<p><img src="https://i.loli.net/2021/07/06/AYodtpHCXWNnSVZ.png" alt="image-20210706194627193"></p>
+<p>​	至于为什么不能直接free两次p1，是因为<code>free()</code>中有检查，其中old指针为<code>fastbin</code>的头指针，即此处只是判断<code>fastbin</code>的头指针和p指针是否一致。所以fastbin double free的攻击思路就是我们只要保证要double free的chunk不在<code>fastbin</code>的头部即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect (old == p, <span class="number">0</span>))</span><br><span class="line">    malloc_printerr (<span class="string">&quot;double free or corruption (fasttop)&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="fastbin-dup-consolidate"><a href="#fastbin-dup-consolidate" class="headerlink" title="fastbin_dup_consolidate"></a>fastbin_dup_consolidate</h3><p>​	这个例子利用<code>malloc_consolidate()</code> 来绕过double free的检查。</p>
+<p>​	<code>malloc_consolidate()</code> 函数是定义在 malloc.c 中的一个函数，用于将 <code>fastbin</code> 中的空闲 chunk 合并整理到 <code>unsorted_bin</code> 中以及进行初始化堆的工作。</p>
+<p>​	通过申请一个大的chunk，调用<code>malloc_consolidate()</code> ,使得已被free的p1指向chunk移动到<code>unsorted_bin</code>中，完成double free。</p>
+<p>​	触发条件：</p>
+<ol>
+<li><p>malloc large bin</p>
+<p>假如malloc的size大于small bin的范围，先调用malloc_consolidate将fastbin 合并为unsorted bin</p>
+</li>
+<li><p>top chunk不够空间</p>
+</li>
+<li><p>在free函数在各种合并前后chunk之后的size大于FASTBIN_CONSOLIDATION_THRESHOLD 也就是65536</p>
+</li>
+</ol>
+<h3 id="fastbin-dup-into-stack"><a href="#fastbin-dup-into-stack" class="headerlink" title="fastbin_dup_into_stack"></a>fastbin_dup_into_stack</h3><p>​	这个例子讲的是利用<code>fastbin_dup</code>实现任意地址读写，直接把栈上地址写入到malloc后的指针所指位置，刚好对应chunk中的fd指针，再次malloc就会分配到栈上的地址。</p>
+<p><img src="https://i.loli.net/2021/07/06/PD7GOy6f4v8bqcg.png" alt="image-20210706205811766"></p>
+<p>​	至于为什么要修改stack_var为0x20，是因为要伪造chunk_size</p>
+<p><img src="https://i.loli.net/2021/07/06/SO3zTAsZiutGbep.png" alt="image-20210706210428034"></p>
+<h3 id="house-of-spirit"><a href="#house-of-spirit" class="headerlink" title="house of spirit"></a>house of spirit</h3><p>House of Spirit 是 <code>the Malloc Maleficarum</code> 中的一种技术。</p>
+<p>该技术的核心在于在目标位置处伪造 fastbin chunk，并将其释放，从而达到分配<strong>指定地址</strong>的 chunk 的目的。</p>
+<p>要想构造 fastbin fake chunk，并且将其释放时，可以将其放入到对应的 fastbin 链表中，需要绕过一些必要的检测，即</p>
+<ul>
+<li>fake chunk 的 ISMMAP 位不能为 1，因为 free 时，如果是 mmap 的 chunk，会单独处理。</li>
+<li>fake chunk 地址需要对齐， MALLOC_ALIGN_MASK</li>
+<li>fake chunk 的 size 大小需要满足对应的 fastbin 的需求，同时也得对齐。</li>
+<li>fake chunk 的 next chunk 的大小不能小于 <code>2 * SIZE_SZ</code>，同时也不能大于<code>av-&gt;system_mem</code> 。</li>
+<li>fake chunk 对应的 fastbin 链表头部不能是该 fake chunk，即不能构成 double free 的情况。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> _int_free(mstate av, Void_t* mem)</span><br><span class="line">&#123;</span><br><span class="line">    mchunkptr p; <span class="comment">// mem相应的chunk</span></span><br><span class="line">    INTERNAL_SIZE_T size; <span class="comment">//size，大小</span></span><br><span class="line">    mfastbinptr* fb; <span class="comment">//联系fast bin</span></span><br><span class="line">    ...</span><br><span class="line">    p = mem2chunk(mem);   <span class="comment">//memory转换为chunk</span></span><br><span class="line">    size = chunksize(p);   <span class="comment">//获得chunksize</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> ((<span class="type">unsigned</span> <span class="type">long</span>)(size) &lt;= (<span class="type">unsigned</span> <span class="type">long</span>)(av-&gt;max_fast))    <span class="comment">//当前chunk的size字段的比较，不能超过fastbin的最大值</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (chunk_at_offset(p, size)-&gt;size &lt;= <span class="number">2</span> * SIZE_SZ</span><br><span class="line">            || __builtin_expect(chunksize(chunk_at_offset(p, size))</span><br><span class="line">                                            &gt;= av-&gt;system_mem, <span class="number">0</span>))            <span class="comment">//比较下一个chunk的size字段，2*SIZE_ZE&lt;chunksize&lt;av-&gt;system_mem</span></span><br><span class="line"> </span><br><span class="line">        &#123;</span><br><span class="line">            errstr = <span class="string">&quot;free(): invalid next size (fast)&quot;</span>;</span><br><span class="line">            <span class="keyword">goto</span> errout;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">        fb = &amp;(av-&gt;fastbins[fastbin_index(size)]);</span><br><span class="line">        ...</span><br><span class="line">        p-&gt;fd = *fb;</span><br><span class="line">        *fb = p;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://paper.seebug.org/445/">glibc malloc学习笔记之fastbin (seebug.org)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/pang241/article/details/78076113?utm_source=blogxgwz3">linux堆内存漏洞利用之fastbin_pang241的专栏-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Plus_RE/article/details/79265805">Glibc：浅谈 malloc_consolidate() 函数具体实现</a></p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pwn/">Pwn</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/07/08/Pwn/Heap-learning-note-devoke/" title="Heap learning note"><img class="cover" src="https://s2.loli.net/2024/02/20/Rz1MuKePOtUjLJ7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Heap learning note</div></div></a></div><div class="next-post pull-right"><a href="/2021/07/01/Reverse/Brute-Force-in-Reverse-Engineer/" title="Brute Force in Reverse Engineer"><img class="cover" src="/img/90788524_p0_master1200.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Brute Force in Reverse Engineer</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">devoke</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="lighthouse 使用指南">lighthouse 使用指南</a><time datetime="2024-03-03T15:45:14.000Z" title="发表于 2024-03-03 23:45:14">2024-03-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/" title="ES小主机折腾记">ES小主机折腾记</a><time datetime="2024-02-19T03:05:01.000Z" title="发表于 2024-02-19 11:05:01">2024-02-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE">HFCTF2022 RE</a><time datetime="2022-03-20T12:04:53.000Z" title="发表于 2022-03-20 20:04:53">2022-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/WriteUp/%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%E5%AF%86%E7%A0%81%E9%A2%98/" title="简简单单密码题">简简单单密码题</a><time datetime="2022-03-09T12:08:44.000Z" title="发表于 2022-03-09 20:08:44">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/02/03/Python/Python-multiprocess-learning/" title="Python multiprocess learning">Python multiprocess learning</a><time datetime="2022-02-03T06:25:30.000Z" title="发表于 2022-02-03 14:25:30">2022-02-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2024/02/20/Rz1MuKePOtUjLJ7.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By devoke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"></div></div></body></html>

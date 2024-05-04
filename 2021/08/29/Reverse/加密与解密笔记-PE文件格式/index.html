@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>加密与解密笔记-PE文件格式 | devoke's blog</title><meta name="author" content="devoke"><meta name="copyright" content="devoke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="​	基础太差了，补一补。 PE文件解析基本概念PE文件：Portable Executable File Format格式文件是Windows平台上主流可执行文件格式 模块：PE文件通过Windows加载器载入内存中后，内存中的版本称为模块(Module)，其起始地址成为模块句柄（hModule)"><link rel="shortcut icon" href="https://s2.loli.net/2024/02/20/B6y8wIH5iltGxP9.png"><link rel="canonical" href="http://example.com/2021/08/29/Reverse/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%94%E8%AE%B0-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html"><link rel="preconnect"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: ,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '加密与解密笔记-PE文件格式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-02-20 09:53:28'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2021/08/29/ki8y5sOeEBKD49A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="devoke's blog"><span class="site-name">devoke's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">加密与解密笔记-PE文件格式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-29T12:38:26.000Z" title="发表于 2021-08-29 20:38:26">2021-08-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-20T01:53:28.000Z" title="更新于 2024-02-20 09:53:28">2024-02-20</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>​	基础太差了，补一补。</p>
+<h2 id="PE文件解析"><a href="#PE文件解析" class="headerlink" title="PE文件解析"></a>PE文件解析</h2><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>PE文件：Portable Executable File Format格式文件是Windows平台上主流可执行文件格式</p>
+<p>模块：PE文件通过Windows加载器载入内存中后，内存中的版本称为模块(Module)，其起始地址成为模块句柄（hModule) 或 基地址（ImageBase）</p>
+<blockquote>
+<p><code>GetModuleHandle(LPCTSTR lpModuleName)</code>可以根据模块名获得对应的模块句柄，传入NULL参数则返回自身句柄</p>
+</blockquote>
+<p>VA：每个程序都有自己的虚拟空间，这个虚拟空间的内存地址成为虚拟地址（Virutal Address）</p>
+<p>RVA：模块的基地址可以是任意地方，因此引入相对虚拟地址（Relative Virtual Address）来访问模块中的代码或数据</p>
+<p>文件偏移地址（File offset）：也叫物理地址（RAW offset），代表某个数据的位置距离文件头的的字节数</p>
+<h4 id="PE格式框架结构"><a href="#PE格式框架结构" class="headerlink" title="PE格式框架结构"></a>PE格式框架结构</h4><img src="https://i.loli.net/2021/08/29/bOhUvRyYXFkTwGM.png" alt="img" style="zoom:67%;" />
+
+<p><img src="https://i.loli.net/2021/08/29/xDY2F1MUmIf9LhQ.png" alt="image-20210829192421132"></p>
+<h4 id="MS-DOS-HEADRER"><a href="#MS-DOS-HEADRER" class="headerlink" title="MS-DOS HEADRER"></a>MS-DOS HEADRER</h4><p><img src="https://i.loli.net/2021/08/29/enB6FpM5fYGo8TX.png" alt="image-20210829194545750"></p>
+<p>比较重要的字段是</p>
+<ul>
+<li>指向PE文件头（NtHeader） 的 AddressOfNewExeHeader</li>
+</ul>
+<p>该PE文件中108h对应位置是</p>
+<img src="https://i.loli.net/2021/08/29/8LNqxFJ5oSj4cIf.png" alt="image-20210829194850425" style="zoom: 50%;" />
+
+<h4 id="DOS-STUB"><a href="#DOS-STUB" class="headerlink" title="DOS-STUB"></a>DOS-STUB</h4><p>​	它是一个总是由大约100个字节所组成的和MS-DOS 2.0兼容的可执行体，多数情况下只用来输出<code>This program cannot be run in DOS mode</code>的错误信息。win32系统都直接跳过DOS Stub定位到PE头。程序员可以自己实现该部分DOS程序。</p>
+<h3 id="NtHeader-Nt映像头"><a href="#NtHeader-Nt映像头" class="headerlink" title="NtHeader Nt映像头"></a>NtHeader Nt映像头</h3><h4 id="FileHeader-映像文件头"><a href="#FileHeader-映像文件头" class="headerlink" title="FileHeader 映像文件头"></a>FileHeader 映像文件头</h4><p>​	映像文件头包含PE文件的一些基本信息</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_IMAGE_FILE_HEADER</span> &#123;</span><br><span class="line">      WORD Machine;                     <span class="comment">//这里定义的是运行平台,i386= 0x014Ch这个值</span></span><br><span class="line">      WORD NumberOfSections;　　　　　　　<span class="comment">//这个是标识区块的数目，紧跟在PE头的后面，也就是IMAGE_NT_HEADERS的后面</span></span><br><span class="line">      DWORD TimeDateStamp;				<span class="comment">//一个比文件系统的时间更精确的文件创建时间指示器</span></span><br><span class="line">      DWORD PointerToSymbolTable;		<span class="comment">//COFF符号表的偏移位置</span></span><br><span class="line">      DWORD NumberOfSymbols;			<span class="comment">//COFF符号表中的符号数目</span></span><br><span class="line">      WORD SizeOfOptionalHeader; 　　　　<span class="comment">//这里表明了IMAGE_NT_HEADERS中的大小(RAW SIZE)，32位一般是0x00E0, 64位PE+一般是0x00F0</span></span><br><span class="line">      WORD Characteristics;　　　　　　　<span class="comment">//普通的EXE是0x010fh, DLL文件是0x210Eh</span></span><br><span class="line">    &#125; IMAGE_FILE_HEADER,*PIMAGE_FILE_HEADER;</span><br></pre></td></tr></table></figure>
+
+<h4 id="OptionalHeader-可选映像头"><a href="#OptionalHeader-可选映像头" class="headerlink" title="OptionalHeader 可选映像头"></a>OptionalHeader 可选映像头</h4><p>​	相比映像文件头定义了更多信息</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_OPTIONAL_HEADER</span> &#123;</span></span><br><span class="line"></span><br><span class="line">      WORD Magic;</span><br><span class="line">      BYTE MajorLinkerVersion;			   <span class="comment">//链接器版本</span></span><br><span class="line">      BYTE MinorLinkerVersion;</span><br><span class="line">      DWORD SizeOfCode;　　　　　　　　　　　<span class="comment">//这里定义了包含代码区块的大小</span></span><br><span class="line">      DWORD SizeOfInitializedData;　　　　<span class="comment">//这里定义了已经初始化的变量的区块的大小</span></span><br><span class="line">      DWORD SizeOfUninitializedData;　　　<span class="comment">//这里是未初始化的变量的区块的大小</span></span><br><span class="line">      DWORD AddressOfEntryPoint;　　　　　<span class="comment">//这里是程序入口的RVA（相对虚拟地址）</span></span><br><span class="line">      DWORD BaseOfCode;　　　　　　　　　　<span class="comment">//这里是程序代码块的起始RVA</span></span><br><span class="line">      DWORD BaseOfData;　　　　　　　　　　<span class="comment">//这里是数据块起始RVA</span></span><br><span class="line">      DWORD ImageBase;　　　　　　　　　　　<span class="comment">//这里是程序默认装入的基地址(ImageBase)</span></span><br><span class="line">      DWORD SectionAlignment;　　　　　　 <span class="comment">//内存中区块的对齐值，非常重要</span></span><br><span class="line">      DWORD FileAlignment;　　　　　　　　<span class="comment">//文件中区块的对齐值，非常重要</span></span><br><span class="line">      WORD MajorOperatingSystemVersion;</span><br><span class="line">      WORD MinorOperatingSystemVersion;</span><br><span class="line">      WORD MajorImageVersion;</span><br><span class="line">      WORD MinorImageVersion;</span><br><span class="line">      WORD MajorSubsystemVersion;</span><br><span class="line">      WORD MinorSubsystemVersion;</span><br><span class="line">      DWORD Win32VersionValue;</span><br><span class="line">      DWORD SizeOfImage;</span><br><span class="line">      DWORD SizeOfHeaders;</span><br><span class="line">      DWORD CheckSum;</span><br><span class="line">      WORD Subsystem;　　　　　　　　　　<span class="comment">//这里定义了文件的子系统，图形接口子系统，字符子系统，具体可以看具体的定义</span></span><br><span class="line">      WORD DllCharacteristics;</span><br><span class="line">      DWORD SizeOfStackReserve;</span><br><span class="line">      DWORD SizeOfStackCommit;</span><br><span class="line">      DWORD SizeOfHeapReserve;</span><br><span class="line">      DWORD SizeOfHeapCommit;</span><br><span class="line">      DWORD LoaderFlags;</span><br><span class="line">      DWORD NumberOfRvaAndSizes;　　　<span class="comment">//这里定义了数据目录表的项数，一直保持为16</span></span><br><span class="line">      IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES]; <span class="comment">//这个是数据目录表，指向输入、输出表、资源块等数据，很重要</span></span><br><span class="line">    &#125; IMAGE_OPTIONAL_HEADER32,*PIMAGE_OPTIONAL_HEADER32;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>数据目录表成员如下</p>
+<img src="https://i.loli.net/2021/08/29/ki8y5sOeEBKD49A.png" alt="img" style="zoom:67%;" />
+
+<h3 id="SectionHeaders-区块表"><a href="#SectionHeaders-区块表" class="headerlink" title="SectionHeaders 区块表"></a>SectionHeaders 区块表</h3><p>​	在PE文件头与原始数据之间的区块表，包含每个块在映像中的信息，分别指向不同的区块实体。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_SECTION_HEADER</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	+<span class="number">0</span>h BYTE Name[IMAGE_SIZEOF_SHORT_NAME]; <span class="comment">// 节表名称,如“.text” 占8个字节</span></span><br><span class="line">	<span class="class"><span class="keyword">union</span> +8<span class="title">h</span> </span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">		DWORD PhysicalAddress; <span class="comment">// 物理地址</span></span><br><span class="line">		DWORD VirtualSize; <span class="comment">// 真实长度，这两个值是一个联合结构，可以使用其中的任何一个，一般是取后一个</span></span><br><span class="line">	&#125; Misc;</span><br><span class="line">	+<span class="number">0</span>ch DWORD VirtualAddress; <span class="comment">// 节区的 RVA 地址</span></span><br><span class="line">	+<span class="number">10</span>h DWORD SizeOfRawData; <span class="comment">// 在文件中对齐后的尺寸</span></span><br><span class="line">	+<span class="number">14</span>h DWORD PointerToRawData; <span class="comment">// 在文件中的偏移量</span></span><br><span class="line">	+<span class="number">18</span>h DWORD PointerToRelocations; <span class="comment">// 在OBJ文件中使用，重定位的偏移</span></span><br><span class="line">	+<span class="number">1</span>ch DWORD PointerToLinenumbers; <span class="comment">// 行号表的偏移（供调试使用地）</span></span><br><span class="line">	+<span class="number">1</span>eh WORD NumberOfRelocations; <span class="comment">// 在OBJ文件中使用，重定位项数目</span></span><br><span class="line">	+<span class="number">20</span>h WORD NumberOfLinenumbers; <span class="comment">// 行号表中行号的数目</span></span><br><span class="line">	+<span class="number">24</span>h DWORD Characteristics; <span class="comment">// 节属性如可读，可写，可执行等</span></span><br><span class="line">&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;</span><br></pre></td></tr></table></figure>
+
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reverse/">Reverse</a><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/09/12/WriteUp/%F0%9F%90%8F%F0%9F%8D%8A%F0%9F%8F%86-Writeup/" title="🐏🍊🏆 Writeup"><img class="cover" src="https://s2.loli.net/2024/02/20/h3iOcSdRqel45vD.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">🐏🍊🏆 Writeup</div></div></a></div><div class="next-post pull-right"><a href="/2021/08/11/WriteUp/CryptoHack-Writeup/" title="CryptoHack Writeup"><img class="cover" src="https://s2.loli.net/2024/02/20/h3iOcSdRqel45vD.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CryptoHack Writeup</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/05/04/Zav4zFVukLJMBKI.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">devoke</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/03/Reverse/lighthouse%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="lighthouse 使用指南">lighthouse 使用指南</a><time datetime="2024-03-03T15:45:14.000Z" title="发表于 2024-03-03 23:45:14">2024-03-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/19/Life/ES%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%8A%98%E8%85%BE%E8%AE%B0/" title="ES小主机折腾记">ES小主机折腾记</a><time datetime="2024-02-19T03:05:01.000Z" title="发表于 2024-02-19 11:05:01">2024-02-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/WriteUp/HFCTF2022-RE/" title="HFCTF2022 RE">HFCTF2022 RE</a><time datetime="2022-03-20T12:04:53.000Z" title="发表于 2022-03-20 20:04:53">2022-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/09/WriteUp/%E7%AE%80%E7%AE%80%E5%8D%95%E5%8D%95%E5%AF%86%E7%A0%81%E9%A2%98/" title="简简单单密码题">简简单单密码题</a><time datetime="2022-03-09T12:08:44.000Z" title="发表于 2022-03-09 20:08:44">2022-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/02/03/Python/Python-multiprocess-learning/" title="Python multiprocess learning">Python multiprocess learning</a><time datetime="2022-02-03T06:25:30.000Z" title="发表于 2022-02-03 14:25:30">2022-02-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://i.loli.net/2021/08/29/ki8y5sOeEBKD49A.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By devoke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"></div></div></body></html>
